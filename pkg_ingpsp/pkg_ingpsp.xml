@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5.0" method="upgrade">
+    <name>ING PSP - HihaShop Package</name>
+    <description>ING PSP HihaShop Package containing all available payment methods</description>
+    <packagename>ingpsp</packagename>
+    <author>Ginger Payments</author>
+    <packager>Ginger Payments</packager>
+    <creationDate>7 July 2017</creationDate>
+    <copyright>Copyright 2017 - Ginger Payments B.V.</copyright>
+    <license>The MIT License (MIT)</license>
+    <authorEmail>plugins@gingerpayments.com</authorEmail>
+    <authorUrl>https://www.gingerpayments.com</authorUrl>
+    <version>1.3.0</version>
+    <files folder="extensions">
+        <file id="ingpsp" type="library">ingpsp.zip</file>
+        <file id="ingpspbancontact" type="plugin" group="hikashoppayment">ingpspbancontact.zip</file>
+        <file id="ingpspbanktransfer" type="plugin" group="hikashoppayment">ingpspbanktransfer.zip</file>
+        <file id="ingpspcashondelivery" type="plugin" group="hikashoppayment">ingpspcashondelivery.zip</file>
+        <file id="ingpspcreditcard" type="plugin" group="hikashoppayment">ingpspcreditcard.zip</file>
+        <file id="ingpsphomepay" type="plugin" group="hikashoppayment">ingpsphomepay.zip</file>
+        <file id="ingpspideal" type="plugin" group="hikashoppayment">ingpspideal.zip</file>
+        <file id="ingpspklarna" type="plugin" group="hikashoppayment">ingpspklarna.zip</file>
+        <file id="ingpsppaypal" type="plugin" group="hikashoppayment">ingpsppaypal.zip</file>
+        <file id="ingpspsofort" type="plugin" group="hikashoppayment">ingpspsofort.zip</file>
+        <file id="ingpsppayconiq" type="plugin" group="hikashoppayment">ingpsppayconiq.zip</file>
+    </files>
+</extension>
