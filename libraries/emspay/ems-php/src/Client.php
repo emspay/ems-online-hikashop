@@ -59,41 +59,6 @@ final class Client
         }
     }
     /**
-     * Check if account is in test mode.
-     *
-     * @return bool
-     */
-    public function isInTestMode()
-    {
-        try {
-            return $this->isTestMode(
-                $this->httpClient->get('merchants/self/projects/self/')->json()
-            );
-        } catch (RequestException $exception) {
-            throw new ClientException(
-                'An error occurred while processing the request: '.$exception->getMessage(),
-                $exception->getCode(),
-                $exception
-            );
-        }
-    }
-
-    /**
-     * Process test-mode API response.
-     *
-     * @param array $projectDetails
-     * @return bool
-     */
-    private function isTestMode($projectDetails)
-    {
-        if (!array_key_exists('status', $projectDetails)) {
-            return false;
-        }
-
-        return ($projectDetails['status'] == 'active-testing');
-    }
-
-    /**
      * Create a new iDEAL order.
      *
      * @param integer $amount Amount in cents.
