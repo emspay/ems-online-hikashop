@@ -21,21 +21,20 @@ final class Ginger
      * Create a new API client.
      *
      * @param string $apiKey Your API key.
-     * @param string $product
      * @return Client
      */
-    public static function createClient($apiKey, $product = null)
+    public static function createClient($apiKey)
     {
         Guard::uuid(
             static::apiKeyToUuid($apiKey),
-            'ING API key is invalid: '.$apiKey
+            'EMS API key is invalid: '.$apiKey
         );
 
         return new Client(
             new HttpClient(
                 [
                     'base_url' => [
-                        static::getEndpoint($product),
+                        static::getEndpoint(),
                         ['version' => self::API_VERSION]
                     ],
                     'defaults' => [
@@ -53,21 +52,11 @@ final class Ginger
     /**
      * Get API endpoint based on product
      *
-     * @param string $product
      * @return string
      */
-    public static function getEndpoint($product)
+    public static function getEndpoint()
     {
-        switch ($product) {
-            case 'kassacompleet':
-                return (new Client\EndpointResolver())->getEndpointKassa();
-            case 'ingcheckout':
-                return (new Client\EndpointResolver())->getEndpointIng();
-            case 'epay':
-                return (new Client\EndpointResolver())->getEndpointEpay();
-            default:
-                return (new Client\EndpointResolver())->getEndpointGinger();
-        }
+        return (new Client\EndpointResolver())->getEndpointEms();
     }
 
     /**
