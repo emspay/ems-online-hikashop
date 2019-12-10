@@ -2,22 +2,22 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-class IngpspPlugin extends hikashopPaymentPlugin
+class EmspayPlugin extends hikashopPaymentPlugin
 {
     var $accepted_currencies = array("EUR");
     var $multiple = true;
     var $pluginConfig = array(
         'ing_product' => array(
-            'LIB_INGPSP_PRODUCT',
+            'LIB_EMSPAY_PRODUCT',
             'list',
             array(
-                'kassacompleet' => 'LIB_INGPSP_PRODUCT_KC',
-                'ingcheckout' => 'LIB_INGPSP_PRODUCT_ING_CHECKOUT',
-                'epay' => 'LIB_INGPSP_PRODUCT_ING_EPAY'
+                'kassacompleet' => 'LIB_EMSPAY_PRODUCT_KC',
+                'ingcheckout' => 'LIB_EMSPAY_PRODUCT_ING_CHECKOUT',
+                'epay' => 'LIB_EMSPAY_PRODUCT_ING_EPAY'
             )
         ),
-        'api_key' => array('LIB_INGPSP_API_KEY', 'input'),
-        'bundle_cacert' => array('LIB_INGPSP_BUNDLE_CA_CERT', 'boolean', '1'),
+        'api_key' => array('LIB_EMSPAY_API_KEY', 'input'),
+        'bundle_cacert' => array('LIB_EMSPAY_BUNDLE_CA_CERT', 'boolean', '1'),
         'notification' => array('ALLOW_NOTIFICATIONS_FROM_X', 'boolean', '1'),
         'notify_url' => array('NOTIFY_URL_DEFINE', 'html', ''),
         'cancel_url' => array('CANCEL_URL_DEFINE', 'html', ''),
@@ -33,10 +33,10 @@ class IngpspPlugin extends hikashopPaymentPlugin
      */
     public function __construct(&$subject, $config)
     {
-        JImport('ingpsp.ing-php.vendor.autoload');
-        JImport('ingpsp.ingpsphelper');
+        JImport('emspay.ing-php.vendor.autoload');
+        JImport('emspay.emspayhelper');
 
-        JFactory::getLanguage()->load('lib_ingpsp', JPATH_SITE);
+        JFactory::getLanguage()->load('lib_emspay', JPATH_SITE);
         JFactory::getLanguage()->load('plg_hikashoppayment_'.$this->name, JPATH_ADMINISTRATOR);
 
         $this->pluginConfig['notification'][0] = JText::sprintf('ALLOW_NOTIFICATIONS_FROM_X', 'ING PSP');
@@ -54,13 +54,13 @@ class IngpspPlugin extends hikashopPaymentPlugin
     public function onAfterCheckoutStep()
     {
         if (JRequest::getString('issuer')) {
-            JFactory::getSession()->set('ingpsp_issuer', JRequest::getString('issuer'));
+            JFactory::getSession()->set('emspay_issuer', JRequest::getString('issuer'));
         }
         if (JRequest::getString('dob')) {
-            JFactory::getSession()->set('ingpsp_dob', JRequest::getString('dob'));
+            JFactory::getSession()->set('emspay_dob', JRequest::getString('dob'));
         }
         if (JRequest::getString('gender')) {
-            JFactory::getSession()->set('ingpsp_gender', JRequest::getString('gender'));
+            JFactory::getSession()->set('emspay_gender', JRequest::getString('gender'));
         }
     }
 
@@ -76,17 +76,17 @@ class IngpspPlugin extends hikashopPaymentPlugin
         parent::onAfterOrderConfirm($order, $methods, $method_id);
 
         if (empty($this->payment_params->api_key)) {
-            $this->app->enqueueMessage(JText::_('LIB_INGPSP_API_KEY_NOT_SET'), 'error');
+            $this->app->enqueueMessage(JText::_('LIB_EMSPAY_API_KEY_NOT_SET'), 'error');
             $this->app->redirect($this->pluginConfig['cancel_url'][2]);
         } else {
-            $ingOrder = $this->createIngpspOrder($order);
+            $ingOrder = $this->createEmspayOrder($order);
 
             if ($ingOrder->status()->isError()) {
                 $this->app->enqueueMessage(
                     JText::_($ingOrder->transactions()->current()->reason()->toString()),
                     'error'
                 );
-                $this->app->enqueueMessage(JText::_('LIB_INGPSP_PAYMENT_STATUS_ERROR'), 'error');
+                $this->app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
                 $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
             }
 
@@ -132,12 +132,12 @@ class IngpspPlugin extends hikashopPaymentPlugin
             || $ingOrder->status()->isNew()
         ) {
             $this->modifyOrder($merchant_order_id, $this->payment_params->verified_status, true, true);
-            $app->enqueueMessage(JText::_('LIB_INGPSP_ORDER_IS_PLACED'));
+            $app->enqueueMessage(JText::_('LIB_EMSPAY_ORDER_IS_PLACED'));
             $cartClass->cleanCartFromSession(false);
             $app->redirect($return_url);
         } else {
             $this->modifyOrder($merchant_order_id, $this->payment_params->invalid_status, true, true);
-            $app->enqueueMessage(JText::_('LIB_INGPSP_PAYMENT_STATUS_ERROR'), 'error');
+            $app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
             $app->redirect($cancel_url);
         }
     }

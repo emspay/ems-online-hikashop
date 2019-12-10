@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
  * @since       v1.0.0
  **/
 
-JImport('ingpsp.ingpspplugin');
+JImport('emspay.ingpspplugin');
 
 class plgHikashoppaymentIngpspIdeal extends IngpspPlugin
 {

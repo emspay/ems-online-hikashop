@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="library" method="upgrade" group="ingpsp" version="3.0">
-    <name>ING PSP - Library</name>
+    <name>EMS Online - Library</name>
     <creationDate>06/26/2016</creationDate>
     <version>1.3.0</version>
     <author>Ginger Payments</author>
@@ -8,18 +8,18 @@
     <authorUrl>https://www.gingerpayments.com</authorUrl>
     <copyright>Copyright 2017 - Ginger Payments B.V.</copyright>
     <license>The MIT License (MIT)</license>
-    <description>ING PSP HikaShop payment methods library</description>
-    <libraryname>ingpsp</libraryname>
+    <description>EMS Online HikaShop payment methods library</description>
+    <libraryname>emspay</libraryname>
     <files>
-        <filename>ingpspplugin.php</filename>
-        <filename>ingpsphelper.php</filename>
-        <folder>ing-php</folder>
+        <filename>emspayplugin.php</filename>
+        <filename>emspayhelper.php</filename>
+        <folder>ems-php</folder>
         <folder>language</folder>
     </files>
     <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.lib_ingpsp.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.lib_ingpsp.ini</language>
-        <language tag="de-DE">de-DE/de-DE.lib_ingpsp.ini</language>
-        <language tag="fr-FR">fr-FR/fr-FR.lib_ingpsp.ini</language>
+        <language tag="en-GB">en-GB/en-GB.lib_emspay.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.lib_emspay.ini</language>
+        <language tag="de-DE">de-DE/de-DE.lib_emspay.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.lib_emspay.ini</language>
     </languages>
 </extension>
