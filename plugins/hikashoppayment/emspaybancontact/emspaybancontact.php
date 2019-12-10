@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 
 JImport('emspay.emspayplugin');
 
-class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
+class plgHikashoppaymentEmspayBancontact extends EmspayPlugin
 {
-    var $name = 'emspaypayconiq';
+    var $name = 'emspaybancontact';
 
     /**
      * @param $element
@@ -32,8 +32,8 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_NAME');
-        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_DESCRIPTION');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYBANCONTACT_NAME');
+        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYBANCONTACT_DESCRIPTION');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';
@@ -46,8 +46,6 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
      */
     protected function createEmspayOrder()
     {
-        EmspayHelper::clearKlarnaSessionData();
-
         $currency = $this->currency->currency_code;
         $totalInCents = EmspayHelper::getAmountInCents($this->order->order_full_price);
         $orderId = $this->order->order_id;
@@ -64,10 +62,9 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
             $ginger->useBundledCA();
         }
 
-        return $ginger->createPayconicOrder(
+        return $ginger->createBancontactOrder(
             $totalInCents, // Amount in cents
             $currency,     // Currency
-            [],
             $description,  // Description
             $orderId,      // Merchant Order Id
             $returnUrl,    // Return URL

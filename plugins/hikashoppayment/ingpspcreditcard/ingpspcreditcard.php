@@ -21,11 +21,11 @@ defined('_JEXEC') or die('Restricted access');
  * @since       v1.0.0
  **/
 
-JImport('emspay.ingpspplugin');
+JImport('emspay.emspayplugin');
 
-class plgHikashoppaymentIngpspCreditcard extends IngpspPlugin
+class plgHikashoppaymentEmspayCreditcard extends EmspayPlugin
 {
-    var $name = 'ingpspcreditcard';
+    var $name = 'emspaycreditcard';
 
     /**
      * @param $element
@@ -33,8 +33,8 @@ class plgHikashoppaymentIngpspCreditcard extends IngpspPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_INGSPSPCREDITCARD_NAME');
-        $element->payment_description =  JText::_('PLG_HIKASHOPPAYMENT_INGSPSPCREDITCARD_DESCRIPTION');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYCREDITCARD_NAME');
+        $element->payment_description =  JText::_('PLG_HIKASHOPPAYMENT_EMSPAYCREDITCARD_DESCRIPTION');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';
@@ -45,17 +45,17 @@ class plgHikashoppaymentIngpspCreditcard extends IngpspPlugin
      * @return \GingerPayments\Payment\Order
      * @since v1.0.0
      */
-    protected function createIngpspOrder()
+    protected function createEmspayOrder()
     {
-        IngpspHelper::clearKlarnaSessionData();
+        EmspayHelper::clearKlarnaSessionData();
 
         $currency = $this->currency->currency_code;
-        $totalInCents = IngpspHelper::getAmountInCents($this->order->order_full_price);
+        $totalInCents = EmspayHelper::getAmountInCents($this->order->order_full_price);
         $orderId = $this->order->order_id;
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
-        $customer = IngpspHelper::getCustomerInfo($this->user, $this->order);
-        $plugin = ['plugin' => IngpspHelper::getPluginVersion($this->name)];
+        $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
+        $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \GingerPayments\Payment\Ginger::createClient(
             $this->payment_params->api_key,
             $this->payment_params->ing_product

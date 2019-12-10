@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
-    <name>ING PSP - Klarna</name>
+    <name>EMS PAY  - Klarna</name>
     <creationDate>10/30/2016</creationDate>
     <version>1.3.0</version>
     <author>Ginger Payments</author>
@@ -8,10 +8,10 @@
     <authorUrl>https://www.gingerpayments.com</authorUrl>
     <copyright>Copyright 2017 - Ginger Payments B.V.</copyright>
     <license>The MIT License (MIT)</license>
-    <description>PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_DESCRIPTION</description>
+    <description>PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_DESCRIPTION</description>
     <files>
-        <filename plugin="ingpspklarna">ingpspklarna.php</filename>
-        <filename>ingpspklarna_end.php</filename>
+        <filename plugin="emspayklarna">emspayklarna.php</filename>
+        <filename>emspayklarna_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">
@@ -19,7 +19,7 @@
                type="pluginoptions"
                default="plugin"
                label="hikashop"
-               description="PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_OPTIONS"/>
+               description="PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_OPTIONS"/>
     </params>
     <config>
         <fields name="params" addfieldpath="/components/com_hikashop/fields">
@@ -28,17 +28,17 @@
                        name="pluginoptions"
                        type="pluginoptions"
                        label="hikashop"
-                       description="PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_OPTIONS"/>
+                       description="PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_OPTIONS"/>
             </fieldset>
         </fields>
     </config>
     <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_ingpspklarna.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_ingpspklarna.ini</language>
-        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_ingpspklarna.ini</language>
-        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_ingpspklarna.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_emspayklarna.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_emspayklarna.ini</language>
+        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_emspayklarna.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_emspayklarna.ini</language>
     </languages>
     <media destination="com_hikashop/images/payment" folder="media">
-        <filename>ingpspklarna.png</filename>
+        <filename>emspayklarna.png</filename>
     </media>
 </extension>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
-    <name>ING PSP - Payconiq</name>
+    <name>EMS PAY  - Payconiq</name>
     <creationDate>10/30/2016</creationDate>
     <version>1.3.0</version>
     <author>Ginger Payments</author>
@@ -10,8 +10,8 @@
     <license>The MIT License (MIT)</license>
     <description>PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_DESCRIPTION</description>
     <files>
-        <filename plugin="ingpsppayconiq">ingpsppayconiq.php</filename>
-        <filename>ingpsppayconiq_end.php</filename>
+        <filename plugin="emspaypayconiq">emspaypayconiq.php</filename>
+        <filename>emspaypayconiq_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">
@@ -33,12 +33,12 @@
         </fields>
     </config>
     <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_ingpsppayconiq.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_ingpsppayconiq.ini</language>
-        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_ingpsppayconiq.ini</language>
-        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_ingpsppayconiq.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_emspaypayconiq.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_emspaypayconiq.ini</language>
+        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_emspaypayconiq.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_emspaypayconiq.ini</language>
     </languages>
     <media destination="com_hikashop/images/payment" folder="media">
-        <filename>ingpsppayconiq.png</filename>
+        <filename>emspaypayconiq.png</filename>
     </media>
 </extension>

@@ -21,19 +21,19 @@ defined('_JEXEC') or die('Restricted access');
  * @since       v1.0.0
  **/
 
-JImport('emspay.ingpspplugin');
+JImport('emspay.emspayplugin');
 
-class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
+class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
 {
-    var $name = 'ingpspklarna';
+    var $name = 'emspayklarna';
 
     public function __construct($subject, array $config)
     {
         parent::__construct($subject, $config);
 
-        $this->pluginConfig['shipped_status'] = ['PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_SHIPPED_STATUS', 'orderstatus'];
-        $this->pluginConfig['test_api_key'] = ['PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_TEST_API_KEY', 'input'];
-        $this->pluginConfig['ip_filtering'] = ['PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_IP_FILTERING', 'input'];
+        $this->pluginConfig['shipped_status'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_SHIPPED_STATUS', 'orderstatus'];
+        $this->pluginConfig['test_api_key'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_TEST_API_KEY', 'input'];
+        $this->pluginConfig['ip_filtering'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_IP_FILTERING', 'input'];
     }
 
     /**
@@ -42,8 +42,8 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_NAME');
-        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_DESCRIPTION_INPUT_TEXT');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_NAME');
+        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_DESCRIPTION_INPUT_TEXT');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';
@@ -74,7 +74,7 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
                 }
 
                 $ginger->setOrderCapturedStatus(
-                    $ginger->getOrder($order->old->order_payment_params['ingpsp_order_id'])
+                    $ginger->getOrder($order->old->order_payment_params['emspay_order_id'])
                 );
             }
         }
@@ -92,11 +92,11 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
         hikashopPaymentPlugin::onAfterOrderConfirm($order, $methods, $method_id);
 
         if (empty($this->payment_params->api_key) && empty($this->payment_params->test_api_key)) {
-            $this->app->enqueueMessage(JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_ERROR_APIKEY_NOT_SET'), 'error');
+            $this->app->enqueueMessage(JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_ERROR_APIKEY_NOT_SET'), 'error');
             $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
         } else {
             try {
-                $ingOrder = $this->createIngpspOrder($order);
+                $ingOrder = $this->createEmspayOrder($order);
                 if ($ingOrder->status()->isError()) {
                     $this->app->enqueueMessage(
                         JText::_($ingOrder->transactions()->current()->reason()->toString()),
@@ -106,19 +106,19 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
                 } elseif ($ingOrder->status()->isCancelled()) {
                     $this->modifyOrder($order->order_id, $this->payment_params->invalid_status, true, true);
                     $this->app->enqueueMessage(
-                        JText::_(PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_ERROR_TRANSACTION_IS_CANCELLED),
+                        JText::_(PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_ERROR_TRANSACTION_IS_CANCELLED),
                         'error'
                     );
                     $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
                 } else {
 
-                    $payment_params = ['ingpsp_order_id' => $ingOrder->id()->toString()];
+                    $payment_params = ['emspay_order_id' => $ingOrder->id()->toString()];
 
                     $this->modifyOrder($order->order_id, $this->payment_params->verified_status, true, true,
                         $payment_params);
 
                     $this->app->enqueueMessage(
-                        JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_MESSAGE_TRANSACTION_SUCCESS')
+                        JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_TRANSACTION_SUCCESS')
                     );
                     hikashop_get('class.cart')->cleanCartFromSession(false);
                     return $this->showPage('end');
@@ -140,7 +140,7 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
     {
         foreach ($methods as $method) {
             if ($method->payment_type == $this->name) {
-                if (!IngpspHelper::ipIsEnabled($method->payment_params->ip_filtering)) {
+                if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering)) {
                     return true;
                 }
                 $method->custom_html = $this->customInfoHTML();
@@ -155,17 +155,17 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
      */
     public function customInfoHTML()
     {
-        $html = JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_MESSAGE_SELECT_GENDER').' <br/>';
+        $html = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_SELECT_GENDER').' <br/>';
         $html .= '<select name="gender" id="'.$this->name.'" class="'.$this->name.'">';
         $html .= '<option value="male" '
-            .(JFactory::getSession()->get('ingpsp_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_MESSAGE_SELECT_GENDER_MALE').'</option>';
+            .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
+            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_SELECT_GENDER_MALE').'</option>';
         $html .= '<option value="female" '
-            .(JFactory::getSession()->get('ingpsp_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_MESSAGE_SELECT_GENDER_FEMALE').'</option>';
+            .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
+            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_SELECT_GENDER_FEMALE').'</option>';
         $html .= "</select><br/>";
-        $html .= JText::_('PLG_HIKASHOPPAYMENT_INGSPSPKLARNA_MESSAGE_ENTER_DOB').'<br>';
-        $html .= '<input type="text" name="dob" value="'.JFactory::getSession()->get('ingpsp_dob').'"/>';
+        $html .= JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_ENTER_DOB').'<br>';
+        $html .= '<input type="text" name="dob" value="'.JFactory::getSession()->get('emspay_dob').'"/>';
         $html .= "<style>.hikabtn_checkout_payment_submit{display:none;}</style>";
 
         return $html;
@@ -175,16 +175,16 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
      * @return \GingerPayments\Payment\Order
      * @since v1.0.0
      */
-    protected function createIngpspOrder()
+    protected function createEmspayOrder()
     {
         $currency = $this->currency->currency_code;
-        $totalInCents = IngpspHelper::getAmountInCents($this->order->order_full_price);
+        $totalInCents = EmspayHelper::getAmountInCents($this->order->order_full_price);
         $orderId = $this->order->order_id;
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
-        $customer = IngpspHelper::getCustomerInfo($this->user, $this->order);
+        $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
         $orderLines = $this->getOrderLines();
-        $plugin = ['plugin' => IngpspHelper::getPluginVersion($this->name)];
+        $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \GingerPayments\Payment\Ginger::createClient(
             $this->payment_params->test_api_key ?: $this->payment_params->api_key,
             $this->payment_params->ing_product
@@ -223,14 +223,14 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
                 'name' => $item->product_name,
                 'type' => \GingerPayments\Payment\Order\OrderLine\Type::PHYSICAL,
                 'currency' => \GingerPayments\Payment\Currency::EUR,
-                'amount' => IngpspHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
+                'amount' => EmspayHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
                 'quantity' => (int) $item->cart_product_quantity,
-                'vat_percentage' => IngpspHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
+                'vat_percentage' => EmspayHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
                 'merchant_order_line_id' => $item->product_id
             ];
         }
 
-        if ($cart->shipping && IngpspHelper::getAmountInCents(@$cart->shipping[0]->shipping_price_with_tax) > 0) {
+        if ($cart->shipping && EmspayHelper::getAmountInCents(@$cart->shipping[0]->shipping_price_with_tax) > 0) {
             $orderLines[] = $this->getShippingOrderLine($cart);
         }
 
@@ -246,9 +246,9 @@ class plgHikashoppaymentIngpspKlarna extends IngpspPlugin
         return [
             'name' => $cart->shipping[0]->shipping_name,
             'type' => \GingerPayments\Payment\Order\OrderLine\Type::SHIPPING_FEE,
-            'amount' => IngpspHelper::getAmountInCents($cart->shipping[0]->shipping_price_with_tax),
+            'amount' => EmspayHelper::getAmountInCents($cart->shipping[0]->shipping_price_with_tax),
             'currency' => \GingerPayments\Payment\Currency::EUR,
-            'vat_percentage' => IngpspHelper::getAmountInCents(@$cart->shipping[0]->taxes[0]->tax_rate),
+            'vat_percentage' => EmspayHelper::getAmountInCents(@$cart->shipping[0]->taxes[0]->tax_rate),
             'merchant_order_line_id' => $cart->shipping[0]->shipping_id,
             'quantity' => 1,
         ];

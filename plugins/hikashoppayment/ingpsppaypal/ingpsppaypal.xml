@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
-    <name>ING PSP - PayPal</name>
+    <name>EMS PAY  - PayPal</name>
     <creationDate>10/30/2016</creationDate>
     <version>1.3.0</version>
     <author>Ginger Payments</author>
@@ -10,8 +10,8 @@
     <license>The MIT License (MIT)</license>
     <description>PLG_HIKASHOPPAYMENT_INGPSPSOFORT_DESCRIPTION</description>
     <files>
-        <filename plugin="ingpsppaypal">ingpsppaypal.php</filename>
-        <filename>ingpsppaypal_end.php</filename>
+        <filename plugin="emspaypaypal">emspaypaypal.php</filename>
+        <filename>emspaypaypal_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">
@@ -33,12 +33,12 @@
         </fields>
     </config>
     <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_ingpsppaypal.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_ingpsppaypal.ini</language>
-        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_ingpsppaypal.ini</language>
-        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_ingpsppaypal.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_emspaypaypal.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_emspaypaypal.ini</language>
+        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_emspaypaypal.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_emspaypaypal.ini</language>
     </languages>
     <media destination="com_hikashop/images/payment" folder="media">
-        <filename>ingpsppaypal.png</filename>
+        <filename>emspaypaypal.png</filename>
     </media>
 </extension>
