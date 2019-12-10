@@ -115,7 +115,7 @@ class plgHikashoppaymentEmspayBankTransfer extends EmspayPlugin
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \GingerPayments\Payment\Ginger::createClient(
-            $this->payment_params->api_key,
+            $this->payment_params->api_key
         );
 
         if ($this->payment_params->bundle_cacert === '1') {

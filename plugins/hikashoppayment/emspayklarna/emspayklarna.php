@@ -65,7 +65,7 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
             if (isset($order->old) && $order->old->order_payment_method == $this->name) {
 
                 $ginger = \GingerPayments\Payment\Ginger::createClient(
-                    $this->payment_params->test_api_key ?: $this->payment_params->api_key,
+                    $this->payment_params->test_api_key ?: $this->payment_params->api_key
                 );
 
                 if ($this->payment_params->bundle_cacert === '1') {
@@ -185,7 +185,7 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
         $orderLines = $this->getOrderLines();
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \GingerPayments\Payment\Ginger::createClient(
-            $this->payment_params->test_api_key ?: $this->payment_params->api_key,
+            $this->payment_params->test_api_key ?: $this->payment_params->api_key
         );
 
         if ($this->payment_params->bundle_cacert === '1') {

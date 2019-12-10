@@ -99,7 +99,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \GingerPayments\Payment\Ginger::createClient(
-            $this->payment_params->api_key,
+            $this->payment_params->api_key
         );
 
         if ($this->payment_params->bundle_cacert === '1') {
