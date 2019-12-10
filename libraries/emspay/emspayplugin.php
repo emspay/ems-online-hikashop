@@ -30,7 +30,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
         JFactory::getLanguage()->load('lib_emspay', JPATH_SITE);
         JFactory::getLanguage()->load('plg_hikashoppayment_'.$this->name, JPATH_ADMINISTRATOR);
 
-        $this->pluginConfig['notification'][0] = JText::sprintf('ALLOW_NOTIFICATIONS_FROM_X', 'ING PSP');
+        $this->pluginConfig['notification'][0] = JText::sprintf('ALLOW_NOTIFICATIONS_FROM_X', 'EMS Online');
         $this->pluginConfig['return_url'][2] = HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=checkout&task=after_end";
         $this->pluginConfig['notify_url'][2] = HIKASHOP_LIVE.'index.php?option=com_hikashop&ctrl=checkout&task=notify&notif_payment='.$this->name.'&tmpl=component';
         $this->pluginConfig['cancel_url'][2] = HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=order&task=cancel_order";
