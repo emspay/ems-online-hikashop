@@ -58,7 +58,6 @@ class plgHikashoppaymentEmspayCreditcard extends EmspayPlugin
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \GingerPayments\Payment\Ginger::createClient(
             $this->payment_params->api_key,
-            $this->payment_params->ing_product
         );
 
         if ($this->payment_params->bundle_cacert === '1') {

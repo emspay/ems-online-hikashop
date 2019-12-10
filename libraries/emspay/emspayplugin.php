@@ -7,15 +7,6 @@ class EmspayPlugin extends hikashopPaymentPlugin
     var $accepted_currencies = array("EUR");
     var $multiple = true;
     var $pluginConfig = array(
-        'ing_product' => array(
-            'LIB_EMSPAY_PRODUCT',
-            'list',
-            array(
-                'kassacompleet' => 'LIB_EMSPAY_PRODUCT_KC',
-                'ingcheckout' => 'LIB_EMSPAY_PRODUCT_ING_CHECKOUT',
-                'epay' => 'LIB_EMSPAY_PRODUCT_ING_EPAY'
-            )
-        ),
         'api_key' => array('LIB_EMSPAY_API_KEY', 'input'),
         'bundle_cacert' => array('LIB_EMSPAY_BUNDLE_CA_CERT', 'boolean', '1'),
         'notification' => array('ALLOW_NOTIFICATIONS_FROM_X', 'boolean', '1'),
@@ -111,7 +102,6 @@ class EmspayPlugin extends hikashopPaymentPlugin
 
         $ginger = \GingerPayments\Payment\Ginger::createClient(
             $this->payment_params->api_key,
-            $this->payment_params->ing_product
         );
 
         if ($this->payment_params->bundle_cacert === '1') {
