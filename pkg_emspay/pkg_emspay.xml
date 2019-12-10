@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5.0" method="upgrade">
+    <name>EMS PAY - HihaShop Package</name>
+    <description>EMS PAY HihaShop Package containing all available payment methods</description>
+    <packagename>emspay</packagename>
+    <author>Ginger Payments</author>
+    <packager>Ginger Payments</packager>
+    <creationDate>10 July 2019</creationDate>
+    <copyright>Copyright 2019 - Ginger Payments B.V.</copyright>
+    <license>The MIT License (MIT)</license>
+    <authorEmail>plugins@gingerpayments.com</authorEmail>
+    <authorUrl>https://www.gingerpayments.com</authorUrl>
+    <version>1.3.0</version>
+    <files folder="extensions">
+        <file id="emspay" type="library">emspay.zip</file>
+        <file id="emspaybancontact" type="plugin" group="hikashoppayment">emspaybancontact.zip</file>
+        <file id="emspaybanktransfer" type="plugin" group="hikashoppayment">emspaybanktransfer.zip</file>
+        <file id="emspaycashondelivery" type="plugin" group="hikashoppayment">emspaycashondelivery.zip</file>
+        <file id="emspaycreditcard" type="plugin" group="hikashoppayment">emspaycreditcard.zip</file>
+        <file id="emspayhomepay" type="plugin" group="hikashoppayment">emspayhomepay.zip</file>
+        <file id="emspayideal" type="plugin" group="hikashoppayment">emspayideal.zip</file>
+        <file id="emspayklarna" type="plugin" group="hikashoppayment">emspayklarna.zip</file>
+        <file id="emspaypaypal" type="plugin" group="hikashoppayment">emspaypaypal.zip</file>
+        <file id="emspaysofort" type="plugin" group="hikashoppayment">emspaysofort.zip</file>
+        <file id="emspaypayconiq" type="plugin" group="hikashoppayment">emspaypayconiq.zip</file>
+    </files>
+</extension>
