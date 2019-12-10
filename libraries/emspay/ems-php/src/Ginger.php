@@ -40,7 +40,7 @@ final class Ginger
                     ],
                     'defaults' => [
                         'headers' => [
-                            'User-Agent' => 'ing-php/'.self::CLIENT_VERSION,
+                            'User-Agent' => 'ems-php/'.self::CLIENT_VERSION,
                             'X-PHP-Version' => PHP_VERSION
                         ],
                         'auth' => [$apiKey, '']

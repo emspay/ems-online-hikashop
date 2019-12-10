@@ -1,9 +1,9 @@
 {
-    "name": "ingpsp/ing-php",
-    "description": "The official ING-PSP PHP SDK",
+    "name": "emspay/ems-php",
+    "description": "The official EMS-PHP PHP SDK",
     "keywords": ["payment", "pay", "merchant", "e-commerce"],
     "license": "MIT",
-    "homepage": "https://github.com/ingpsp/ing-php",
+    "homepage": "https://github.com/emspay/ems-php",
     "authors": [
         {
             "name": "Ginger Payments",
@@ -13,7 +13,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/ingpsp/ing-php"
+            "url": "https://github.com/emspay/ems-php"
         }
     ],
     "require": {

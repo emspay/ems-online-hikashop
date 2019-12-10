@@ -13,5 +13,5 @@ pipelines:
             - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/ing-hikashop/plugins/hikashoppayment/emspay*
             - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp -r /home/ubuntu/ing-hikashop/* /var/www/html/joomla/
             - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /home/ubuntu/ing-hikashop
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp /home/ubuntu/.env /var/www/html/joomla/libraries/emspay/ing-php/
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp /home/ubuntu/.env /var/www/html/joomla/libraries/emspay/ems-php/
             - ssh ubuntu@webshop.dev.gingerpayments.com sudo chown -R www-data:www-data /var/www/html/joomla/

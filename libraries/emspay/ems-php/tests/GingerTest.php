@@ -26,7 +26,7 @@ final class GingerTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             [
-                'User-Agent' => 'ing-php/'.Ginger::CLIENT_VERSION,
+                'User-Agent' => 'ems-php/'.Ginger::CLIENT_VERSION,
                 'X-PHP-Version' => PHP_VERSION
             ],
             $httpClient->getDefaultOption('headers')

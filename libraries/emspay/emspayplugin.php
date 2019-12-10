@@ -33,7 +33,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
      */
     public function __construct(&$subject, $config)
     {
-        JImport('emspay.ing-php.vendor.autoload');
+        JImport('emspay.ems-php.vendor.autoload');
         JImport('emspay.emspayhelper');
 
         JFactory::getLanguage()->load('lib_emspay', JPATH_SITE);
