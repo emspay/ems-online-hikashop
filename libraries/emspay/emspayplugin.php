@@ -70,18 +70,18 @@ class EmspayPlugin extends hikashopPaymentPlugin
             $this->app->enqueueMessage(JText::_('LIB_EMSPAY_API_KEY_NOT_SET'), 'error');
             $this->app->redirect($this->pluginConfig['cancel_url'][2]);
         } else {
-            $ingOrder = $this->createEmspayOrder($order);
+            $emsOrder = $this->createEmspayOrder($order);
 
-            if ($ingOrder->status()->isError()) {
+            if ($emsOrder->status()->isError()) {
                 $this->app->enqueueMessage(
-                    JText::_($ingOrder->transactions()->current()->reason()->toString()),
+                    JText::_($emsOrder->transactions()->current()->reason()->toString()),
                     'error'
                 );
                 $this->app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
                 $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
             }
 
-            $this->payment_params->payment_url = $ingOrder->firstTransactionPaymentUrl();
+            $this->payment_params->payment_url = $emsOrder->firstTransactionPaymentUrl();
 
             return $this->showPage('end');
         }
@@ -113,13 +113,13 @@ class EmspayPlugin extends hikashopPaymentPlugin
             $this->processWebhook($ginger, $webhookData);
         }
 
-        $ingOrder = $ginger->getOrder($ginger_order_id);
+        $emsOrder = $ginger->getOrder($ginger_order_id);
         $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$merchant_order_id;
         $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$merchant_order_id;
 
-        if ($ingOrder->status()->isCompleted()
-            || $ingOrder->status()->isProcessing()
-            || $ingOrder->status()->isNew()
+        if ($emsOrder->status()->isCompleted()
+            || $emsOrder->status()->isProcessing()
+            || $emsOrder->status()->isNew()
         ) {
             $this->modifyOrder($merchant_order_id, $this->payment_params->verified_status, true, true);
             $app->enqueueMessage(JText::_('LIB_EMSPAY_ORDER_IS_PLACED'));
@@ -135,17 +135,17 @@ class EmspayPlugin extends hikashopPaymentPlugin
     /**
      * Method processes calls to webhook url
      *
-     * @param object $ingApi
+     * @param object $emsApi
      * @param array $webhookData
      * @return void
      * @since v1.0.0
      */
-    public function processWebhook($ingApi, array $webhookData)
+    public function processWebhook($emsApi, array $webhookData)
     {
         if ($webhookData['event'] == 'status_changed') {
-            $ingOrder = $ingApi->getOrder($webhookData['order_id']);
-            $merchantOrderId = $ingOrder->getMerchantOrderId();
-            if ($ingOrder->status()->isCompleted()) {
+            $emsOrder = $emsApi->getOrder($webhookData['order_id']);
+            $merchantOrderId = $emsOrder->getMerchantOrderId();
+            if ($emsOrder->status()->isCompleted()) {
                 $this->modifyOrder($merchantOrderId, $this->payment_params->verified_status, true, true);
             } else {
                 $this->modifyOrder($merchantOrderId, $this->payment_params->invalid_status, true, true);

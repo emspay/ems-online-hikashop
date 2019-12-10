@@ -68,11 +68,11 @@ class plgHikashoppaymentEmspayBankTransfer extends EmspayPlugin
             );
             $this->app->redirect($this->pluginConfig['cancel_url'][2]);
         } else {
-            $ingOrder = $this->createEmspayOrder();
+            $emsOrder = $this->createEmspayOrder();
 
-            if ($ingOrder->status()->isError()) {
+            if ($emsOrder->status()->isError()) {
                 $this->app->enqueueMessage(
-                    JText::_($ingOrder->transactions()->current()->reason()->toString()),
+                    JText::_($emsOrder->transactions()->current()->reason()->toString()),
                     'error'
                 );
                 $this->app->enqueueMessage(
@@ -82,7 +82,7 @@ class plgHikashoppaymentEmspayBankTransfer extends EmspayPlugin
                 $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
             }
 
-            $paymentReference = self::getGingerPaymentReference($ingOrder->toArray());
+            $paymentReference = self::getGingerPaymentReference($emsOrder->toArray());
 
             if ($order->order_status != $this->payment_params->order_status) {
                 $this->modifyOrder($order->order_id, $this->payment_params->order_status,

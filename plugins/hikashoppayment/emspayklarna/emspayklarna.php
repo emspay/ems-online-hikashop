@@ -95,14 +95,14 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
             $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
         } else {
             try {
-                $ingOrder = $this->createEmspayOrder($order);
-                if ($ingOrder->status()->isError()) {
+                $emsOrder = $this->createEmspayOrder($order);
+                if ($emsOrder->status()->isError()) {
                     $this->app->enqueueMessage(
-                        JText::_($ingOrder->transactions()->current()->reason()->toString()),
+                        JText::_($emsOrder->transactions()->current()->reason()->toString()),
                         'error'
                     );
                     $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
-                } elseif ($ingOrder->status()->isCancelled()) {
+                } elseif ($emsOrder->status()->isCancelled()) {
                     $this->modifyOrder($order->order_id, $this->payment_params->invalid_status, true, true);
                     $this->app->enqueueMessage(
                         JText::_(PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_ERROR_TRANSACTION_IS_CANCELLED),
@@ -111,7 +111,7 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
                     $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
                 } else {
 
-                    $payment_params = ['emspay_order_id' => $ingOrder->id()->toString()];
+                    $payment_params = ['emspay_order_id' => $emsOrder->id()->toString()];
 
                     $this->modifyOrder($order->order_id, $this->payment_params->verified_status, true, true,
                         $payment_params);
