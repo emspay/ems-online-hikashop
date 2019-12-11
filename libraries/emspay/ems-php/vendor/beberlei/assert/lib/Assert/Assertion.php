@@ -1029,7 +1029,7 @@ class Assertion
     {
         static::isArray($value, $message, $propertyPath);
 
-        if (! array_key_exists($key, $value)) {
+        if (!array_key_exists($key, $value)) {
             $message = sprintf(
                 $message ?: 'Array does not contain an element with key "%s"',
                 static::stringify($key)
