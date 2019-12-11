@@ -10,12 +10,12 @@ include_once 'ems-php/vendor/autoload.php';
 
 ## Getting started
 
-First create a new API client with your API key and EMS product:
+First create a new API client with your API key:
 
 ```php
 use \GingerPayments\Payment\Ginger;
 
-$client = Ginger::createClient('ems-api-key', 'ems_product');
+$client = Ginger::createClient('ems-api-key');
 ```
 
 ## Main differences with ginger-php
