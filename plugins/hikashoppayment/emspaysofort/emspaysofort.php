@@ -32,8 +32,8 @@ class plgHikashoppaymentEmspaySofort extends EmspayPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_INGPSPSOFORT_NAME');
-        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_INGPSPSOFORT_DESCRIPTION');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYSOFORT_NAME');
+        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYSOFORT_DESCRIPTION');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';

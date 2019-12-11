@@ -32,8 +32,8 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_NAME');
-        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_DESCRIPTION');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_NAME');
+        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_DESCRIPTION');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';

@@ -8,7 +8,7 @@
     <authorUrl>https://www.gingerpayments.com</authorUrl>
     <copyright>Copyright 2016 - Ginger Payments B.V.</copyright>
     <license>The MIT License (MIT)</license>
-    <description>PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_DESCRIPTION</description>
+    <description>PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_DESCRIPTION</description>
     <files>
         <filename plugin="emspaypayconiq">emspaypayconiq.php</filename>
         <filename>emspaypayconiq_end.php</filename>
@@ -19,7 +19,7 @@
                type="pluginoptions"
                default="plugin"
                label="hikashop"
-               description="PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_OPTIONS"/>
+               description="PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_OPTIONS"/>
     </params>
     <config>
         <fields name="params" addfieldpath="/components/com_hikashop/fields">
@@ -28,7 +28,7 @@
                        name="pluginoptions"
                        type="pluginoptions"
                        label="hikashop"
-                       description="PLG_HIKASHOPPAYMENT_INGPSPPAYCONIQ_OPTIONS"/>
+                       description="PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_OPTIONS"/>
             </fieldset>
         </fields>
     </config>
