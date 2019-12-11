@@ -4,7 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 
 /**
  *   ╲          ╱
- * ╭──────────────╮  COPYRIGHT (C) 2017 GINGER PAYMENTS B.V.
+ * ╭──────────────╮  COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * │╭──╮      ╭──╮│
  * ││//│      │//││  This software is released under the terms of the
  * │╰──╯      ╰──╯│  MIT License.
@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
  * @version     v1.3.0
- * @copyright   COPYRIGHT (C) 2017 GINGER PAYMENTS B.V.
+ * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.0.0
  **/
@@ -76,4 +76,5 @@ class plgHikashoppaymentEmspayCreditcard extends EmspayPlugin
             $returnUrl     // WebHook URL
         );
     }
+
 }

@@ -10,7 +10,7 @@ final class Ginger
     /**
      * The library version.
      */
-    const CLIENT_VERSION = '1.3.2';
+    const CLIENT_VERSION = '1.0.0';
 
     /**
      * The API version.
@@ -50,7 +50,7 @@ final class Ginger
     }
 
     /**
-     * Get API endpoint based on product
+     * Get API endpoint
      *
      * @return string
      */
