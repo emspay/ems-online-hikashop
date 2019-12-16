@@ -24,7 +24,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
      */
     public function __construct(&$subject, $config)
     {
-        JImport('emspay.ems-php.vendor.autoload');
+        JImport('emspay.ginger-php.vendor.autoload');
         JImport('emspay.emspayhelper');
 
         JFactory::getLanguage()->load('lib_emspay', JPATH_SITE);
@@ -97,14 +97,16 @@ class EmspayPlugin extends hikashopPaymentPlugin
         $hikaOrder = $this->getOrder($merchant_order_id);
         $this->loadPaymentParams($hikaOrder);
         $cartClass = hikashop_get('class.cart');
+        $cacert_path = EmspayHelper::getCaCertPath();
 
-        $ginger = \GingerPayments\Payment\Ginger::createClient(
-            $this->payment_params->api_key
+        $ginger = \Ginger\Ginger::createClient(
+            EmspayHelper::GINGER_ENDPOINT,
+            $this->payment_params->api_key,
+            $this->payment_params->bundle_cacert === '1' ?
+                [
+                    CURLOPT_CAINFO => $cacert_path
+            ] : []
         );
-
-        if ($this->payment_params->bundle_cacert === '1') {
-            $ginger->useBundledCA();
-        }
 
         if (JRequest::getMethod() === 'POST') {
             $webhookData = json_decode(file_get_contents('php://input'), true);

@@ -4,7 +4,19 @@ defined('_JEXEC') or die('Restricted access');
 
 class EmspayHelper
 {
-    /**
+     /**
+      * GINGER_ENDPOINT used for create Ginger client
+      */
+    const GINGER_ENDPOINT = 'https://api.online.emspay.eu';
+     /**
+     * Get CA certificate path
+     *
+     * @return bool|string
+     */
+     public static function getCaCertPath(){
+           return realpath(plugin_dir_path(__FILE__).'../ginger-php/assets/cacert.pem');
+     }
+     /**
      * @param object $user
      * @param object $order
      * @return array
@@ -12,7 +24,7 @@ class EmspayHelper
      */
     public static function getCustomerInfo($user, $order)
     {
-        return \GingerPayments\Payment\Common\ArrayFunctions::withoutNullValues([
+        return array_filter([
             'address_type' => 'billing',
             'email_address' => $user->user_email,
             'merchant_customer_id' => $user->user_id,

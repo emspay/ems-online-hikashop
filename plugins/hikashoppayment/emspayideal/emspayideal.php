@@ -69,8 +69,8 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
     {
         foreach ($methods as $method) {
             if ($method->payment_type == $this->name) {
-                $ginger = \GingerPayments\Payment\Ginger::createClient(
-                    $method->payment_params->api_key,
+                $ginger = Ginger\Ginger::createClient(
+                    $method->payment_params->api_key
                 );
                 if ($method->payment_params->bundle_cacert === '1') {
                     $ginger->useBundledCA();
@@ -83,13 +83,12 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
     }
 
     /**
-     * @return \GingerPayments\Payment\Order
+     * @return Ginger\Order
      * @since v1.0.0
      */
     protected function createEmspayOrder()
     {
         EmspayHelper::clearKlarnaSessionData();
-
         $currency = $this->currency->currency_code;
         $totalInCents = EmspayHelper::getAmountInCents($this->order->order_full_price);
         $issuer = JFactory::getSession()->get('emspay_issuer');
