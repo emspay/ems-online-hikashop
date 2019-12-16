@@ -105,7 +105,6 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
         if ($this->payment_params->bundle_cacert === '1') {
             $ginger->useBundledCA();
         }
-
         return $ginger->createIdealOrder(
             $totalInCents, // Amount in cents
             $currency,     // Currency

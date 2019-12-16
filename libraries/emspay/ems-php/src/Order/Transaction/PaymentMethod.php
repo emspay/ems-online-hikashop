@@ -31,10 +31,8 @@ final class PaymentMethod
             self::BANK_TRANSFER,
             self::SOFORT,
             self::BANCONTACT,
-            self::COD,
             self::KLARNA,
             self::PAYPAL,
-            self::HOMEPAY,
             self::PAYCONIQ
         ];
     }

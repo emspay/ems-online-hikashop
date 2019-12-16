@@ -80,9 +80,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
                 $this->app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
                 $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
             }
-
             $this->payment_params->payment_url = $emsOrder->firstTransactionPaymentUrl();
-
             return $this->showPage('end');
         }
     }

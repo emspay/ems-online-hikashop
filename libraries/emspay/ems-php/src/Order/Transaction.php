@@ -94,7 +94,6 @@ final class Transaction
     public static function fromArray(array $transaction)
     {
         Guard::keyExists($transaction, 'payment_method');
-
         $paymentMethod = PaymentMethod::fromString($transaction['payment_method']);
         return new static(
             $paymentMethod,
