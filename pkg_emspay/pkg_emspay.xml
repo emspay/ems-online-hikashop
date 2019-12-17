@@ -15,9 +15,7 @@
         <file id="emspay" type="library">emspay.zip</file>
         <file id="emspaybancontact" type="plugin" group="hikashoppayment">emspaybancontact.zip</file>
         <file id="emspaybanktransfer" type="plugin" group="hikashoppayment">emspaybanktransfer.zip</file>
-        <file id="emspaycashondelivery" type="plugin" group="hikashoppayment">emspaycashondelivery.zip</file>
         <file id="emspaycreditcard" type="plugin" group="hikashoppayment">emspaycreditcard.zip</file>
-        <file id="emspayhomepay" type="plugin" group="hikashoppayment">emspayhomepay.zip</file>
         <file id="emspayideal" type="plugin" group="hikashoppayment">emspayideal.zip</file>
         <file id="emspayklarna" type="plugin" group="hikashoppayment">emspayklarna.zip</file>
         <file id="emspaypaypal" type="plugin" group="hikashoppayment">emspaypaypal.zip</file>

@@ -69,12 +69,14 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
     {
         foreach ($methods as $method) {
             if ($method->payment_type == $this->name) {
-                $ginger = Ginger\Ginger::createClient(
-                    $method->payment_params->api_key
+                $ginger = \Ginger\Ginger::createClient(
+                    EmspayHelper::GINGER_ENDPOINT,
+                    $this->payment_params->api_key,
+                    $this->payment_params->bundle_cacert === '1' ?
+                        [
+                            CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
+                        ] : []
                 );
-                if ($method->payment_params->bundle_cacert === '1') {
-                    $ginger->useBundledCA();
-                }
                 $method->custom_html = $this->processIssuers($ginger->getIdealIssuers()->toArray());
             }
         }
@@ -83,7 +85,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
     }
 
     /**
-     * @return Ginger\Order
+     * @return array
      * @since v1.0.0
      */
     protected function createEmspayOrder()
@@ -97,24 +99,30 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
-        $ginger = \GingerPayments\Payment\Ginger::createClient(
-            $this->payment_params->api_key
+        $ginger = \Ginger\Ginger::createClient(
+            EmspayHelper::GINGER_ENDPOINT,
+            $this->payment_params->api_key,
+            $this->payment_params->bundle_cacert === '1' ?
+                [
+                    CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
+                ] : []
         );
+        return $ginger->createOrder([
+            'currency' => $currency,
+                        'amount' => $totalInCents,
+                        'transactions' => [
+                                [
+                                        'payment_method' => str_replace('emspay_', '', $this->id),
+                                        'payment_method_details' => ['issuer_id' => $issuer]
+                                        ]
+                            ],
+                        'merchant_order_id' => $orderId,
+                        'description' => $description,
+                        'return_url' => $returnUrl,
+                        'customer' => $customer,
+                        'extra' => $plugin,
+                        'webhook_url' => $this->processWebhook()
+                    ]);
 
-        if ($this->payment_params->bundle_cacert === '1') {
-            $ginger->useBundledCA();
-        }
-        return $ginger->createIdealOrder(
-            $totalInCents, // Amount in cents
-            $currency,     // Currency
-            $issuer,       // Issuer Id
-            $description,  // Description
-            $orderId,      // Merchant Order Id
-            $returnUrl,    // Return URL
-            null,          // Expiration Period
-            $customer,     // Customer Information
-            $plugin,       // Extra Information
-            $returnUrl     // WebHook URL
-        );
     }
 }

@@ -13,7 +13,7 @@
     <files>
         <filename>emspayplugin.php</filename>
         <filename>emspayhelper.php</filename>
-        <folder>ems-php</folder>
+        <folder>ginger-php</folder>
         <folder>language</folder>
     </files>
     <languages folder="language">
