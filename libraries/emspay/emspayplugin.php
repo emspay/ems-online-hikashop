@@ -99,7 +99,6 @@ class EmspayPlugin extends hikashopPaymentPlugin
         $this->loadPaymentParams($hikaOrder);
         $cartClass = hikashop_get('class.cart');
         $cacert_path = EmspayHelper::getCaCertPath();
-
         $ginger = Ginger::createClient(
             EmspayHelper::GINGER_ENDPOINT,
             $this->payment_params->api_key,
