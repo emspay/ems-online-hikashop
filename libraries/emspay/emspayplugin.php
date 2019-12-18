@@ -1,6 +1,7 @@
 <?php
 
 defined('_JEXEC') or die('Restricted access');
+use \Ginger\Ginger;
 
 class EmspayPlugin extends hikashopPaymentPlugin
 {
@@ -99,7 +100,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
         $cartClass = hikashop_get('class.cart');
         $cacert_path = EmspayHelper::getCaCertPath();
 
-        $ginger = \Ginger\Ginger::createClient(
+        $ginger = Ginger::createClient(
             EmspayHelper::GINGER_ENDPOINT,
             $this->payment_params->api_key,
             $this->payment_params->bundle_cacert === '1' ?

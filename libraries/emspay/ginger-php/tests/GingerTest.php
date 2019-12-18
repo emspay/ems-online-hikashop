@@ -2,8 +2,8 @@
 
 namespace Ginger\Tests;
 
-use Ginger\ApiClient;
-use Ginger\Ginger;
+use \Ginger\ApiClient;
+use \Ginger\Ginger;
 
 final class GingerTest extends \PHPUnit_Framework_TestCase
 {
