@@ -14,7 +14,7 @@ class EmspayHelper
      * @return bool|string
      */
      public static function getCaCertPath(){
-           return realpath(plugin_dir_path(__FILE__).'../ginger-php/assets/cacert.pem');
+           return realpath(dirname(__FILE__).'../ginger-php/assets/cacert.pem');
      }
      /**
      * @param object $user
