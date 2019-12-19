@@ -71,7 +71,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
             $this->app->enqueueMessage(JText::_('LIB_EMSPAY_API_KEY_NOT_SET'), 'error');
             $this->app->redirect($this->pluginConfig['cancel_url'][2]);
         } else {
-            $emsOrder = $this->createEmspayOrder($order);   
+            $emsOrder = $this->createEmspayOrder($order);
             if ($emsOrder['status'] == 'error') {
                 $this->app->enqueueMessage(
                     JText::_($emsOrder['transactions'][0]['reason']),
