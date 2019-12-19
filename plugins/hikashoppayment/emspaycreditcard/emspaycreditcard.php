@@ -64,16 +64,14 @@ class plgHikashoppaymentEmspayCreditcard extends EmspayPlugin
                 ] : []
         );
 
-
         return $ginger->createOrder([
-            'merchant_order_id' => $orderId,
-            'currency' => 'EUR',
+            'currency' => $currency,
             'amount' => $totalInCents,
             'description' => $description,
             'return_url' => $returnUrl,
             'transactions' => [
                 [
-                    'payment_method' => 'credit-card'
+                    'payment_method' => 'credit-card',
                 ]
             ],
 

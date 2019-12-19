@@ -33,7 +33,6 @@ final class ApiClient
     {
                 return $this->send('GET', '/ideal/issuers');
     }
-
     /**
      * Get an order.
      *
@@ -124,7 +123,6 @@ final class ApiClient
                     } catch (\Exception $exception) {
                         throw HttpRequestFailure::because($exception);
         }
-
         return $this->interpretResponse($response);
     }
 

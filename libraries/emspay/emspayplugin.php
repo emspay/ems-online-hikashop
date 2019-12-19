@@ -73,7 +73,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
         } else {
             $emsOrder = $this->createEmspayOrder($order);
 
-            if ($emsOrder->status()->isError()) {
+            if ($emsOrder['status'] == 'error') {
                 $this->app->enqueueMessage(
                     JText::_($emsOrder->transactions()->current()->reason()->toString()),
                     'error'
@@ -81,7 +81,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
                 $this->app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
                 $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
             }
-            $this->payment_params->payment_url = $emsOrder->firstTransactionPaymentUrl();
+            $this->payment_params->payment_url = $emsOrder['transactions'][0]['payment_url'];
             return $this->showPage('end');
         }
     }
@@ -117,9 +117,9 @@ class EmspayPlugin extends hikashopPaymentPlugin
         $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$merchant_order_id;
         $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$merchant_order_id;
 
-        if ($emsOrder->status()->isCompleted()
-            || $emsOrder->status()->isProcessing()
-            || $emsOrder->status()->isNew()
+        if ($emsOrder['status'] == 'completed'
+            || $emsOrder['status'] == 'processing'
+            || $emsOrder['status'] == 'new'
         ) {
             $this->modifyOrder($merchant_order_id, $this->payment_params->verified_status, true, true);
             $app->enqueueMessage(JText::_('LIB_EMSPAY_ORDER_IS_PLACED'));
@@ -145,7 +145,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
         if ($webhookData['event'] == 'status_changed') {
             $emsOrder = $emsApi->getOrder($webhookData['order_id']);
             $merchantOrderId = $emsOrder->getMerchantOrderId();
-            if ($emsOrder->status()->isCompleted()) {
+            if ($emsOrder['status'] == 'completed') {
                 $this->modifyOrder($merchantOrderId, $this->payment_params->verified_status, true, true);
             } else {
                 $this->modifyOrder($merchantOrderId, $this->payment_params->invalid_status, true, true);
