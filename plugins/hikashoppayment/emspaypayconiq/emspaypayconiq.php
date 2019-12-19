@@ -41,7 +41,7 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
     }
 
     /**
-     * @return \GingerPayments\Payment\Order
+     * @return array
      * @since v1.0.0
      */
     protected function createEmspayOrder()
@@ -55,25 +55,28 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
-        $ginger = \GingerPayments\Payment\Ginger::createClient(
-            $this->payment_params->api_key
+        $ginger = \Ginger\Ginger::createClient(EmspayHelper::GINGER_ENDPOINT,
+            $this->payment_params->api_key,
+            $this->payment_params->bundle_cacert === '1' ?
+                [
+                    CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
+                ] : []
         );
+        return $ginger->createOrder([
+            'merchant_order_id' => (string)$orderId,
+//            'customer' => $customer,
+            'extra' => $plugin,
+            'currency' => $currency,
+            'amount' => $totalInCents,
+            'description' => $description,
+            'return_url' => $returnUrl,
+            'transactions' => [
+                [
+                    'payment_method' => 'payconiq',
+                    []
+                ]
+            ],
 
-        if ($this->payment_params->bundle_cacert === '1') {
-            $ginger->useBundledCA();
-        }
-
-        return $ginger->createPayconicOrder(
-            $totalInCents, // Amount in cents
-            $currency,     // Currency
-            [],
-            $description,  // Description
-            $orderId,      // Merchant Order Id
-            $returnUrl,    // Return URL
-            null,          // Expiration Period
-            $customer,     // Customer Information
-            $plugin,       // Extra Information
-            $returnUrl     // WebHook URL
-        );
+        ]);
     }
 }

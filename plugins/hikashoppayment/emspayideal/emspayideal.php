@@ -71,13 +71,13 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
             if ($method->payment_type == $this->name) {
                 $ginger = \Ginger\Ginger::createClient(
                     EmspayHelper::GINGER_ENDPOINT,
-                    $this->payment_params->api_key,
+                    $method->payment_params->api_key,
                     $this->payment_params->bundle_cacert === '1' ?
                         [
                             CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
                         ] : []
                 );
-                $method->custom_html = $this->processIssuers($ginger->getIdealIssuers()->toArray());
+                $method->custom_html = $this->processIssuers($ginger->getIdealIssuers());
             }
         }
 
@@ -112,7 +112,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                         'amount' => $totalInCents,
                         'transactions' => [
                                 [
-                                        'payment_method' => str_replace('emspay_', '', $this->id),
+                                        'payment_method' => 'ideal',
                                         'payment_method_details' => ['issuer_id' => $issuer]
                                         ]
                             ],
@@ -120,8 +120,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                         'description' => $description,
                         'return_url' => $returnUrl,
                         'customer' => $customer,
-                        'extra' => $plugin,
-                        'webhook_url' => $this->processWebhook()
+                        'extra' => $plugin
                     ]);
 
     }
