@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access');
 
 JImport('emspay.emspayplugin');
 
-class plgHikashoppaymentEmspaySofort extends EmspayPlugin
+class plgHikashoppaymentEmspayKlarnapaynow extends EmspayPlugin
 {
-    var $name = 'emspaysofort';
+    var $name = 'emspayklarnapaynow';
 
     /**
      * @param $element
@@ -32,8 +32,8 @@ class plgHikashoppaymentEmspaySofort extends EmspayPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYSOFORT_NAME');
-        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYSOFORT_DESCRIPTION');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYNOW_NAME');
+        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYNOW_DESCRIPTION');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';
@@ -72,7 +72,7 @@ class plgHikashoppaymentEmspaySofort extends EmspayPlugin
             'return_url' => $returnUrl,
             'transactions' => [
                 [
-                    'payment_method' => 'sofort',
+                    'payment_method' => 'klarna-pay-now',
                 ]
             ],
 
