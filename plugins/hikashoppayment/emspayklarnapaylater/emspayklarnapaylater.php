@@ -23,17 +23,17 @@ defined('_JEXEC') or die('Restricted access');
 
 JImport('emspay.emspayplugin');
 
-class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
+class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
 {
-    var $name = 'emspayklarna';
+    var $name = 'emspayklarnapaylater';
 
     public function __construct($subject, array $config)
     {
         parent::__construct($subject, $config);
 
-        $this->pluginConfig['shipped_status'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_SHIPPED_STATUS', 'orderstatus'];
-        $this->pluginConfig['test_api_key'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_TEST_API_KEY', 'input'];
-        $this->pluginConfig['ip_filtering'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_IP_FILTERING', 'input'];
+        $this->pluginConfig['shipped_status'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_SHIPPED_STATUS', 'orderstatus'];
+        $this->pluginConfig['test_api_key'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_TEST_API_KEY', 'input'];
+        $this->pluginConfig['ip_filtering'] = ['PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_IP_FILTERING', 'input'];
     }
 
     /**
@@ -42,8 +42,8 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
      */
     public function getPaymentDefaultValues(&$element)
     {
-        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_NAME');
-        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_DESCRIPTION_INPUT_TEXT');
+        $element->payment_name = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_NAME');
+        $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_DESCRIPTION_INPUT_TEXT');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
         $element->payment_params->invalid_status = 'cancelled';
@@ -91,12 +91,12 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
         hikashopPaymentPlugin::onAfterOrderConfirm($order, $methods, $method_id);
 
         if (empty($this->payment_params->api_key) && empty($this->payment_params->test_api_key)) {
-            $this->app->enqueueMessage(JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_ERROR_APIKEY_NOT_SET'), 'error');
+            $this->app->enqueueMessage(JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_ERROR_APIKEY_NOT_SET'), 'error');
             $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
         } else {
             try {
                 $emsOrder = $this->createEmspayOrder($order);
-                if ($emsOrder->status()->isError()) {
+                if ($emsOrder['status'] == 'error')  {
                     $this->app->enqueueMessage(
                         JText::_($emsOrder->transactions()->current()->reason()->toString()),
                         'error'
@@ -105,7 +105,7 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
                 } elseif ($emsOrder->status()->isCancelled()) {
                     $this->modifyOrder($order->order_id, $this->payment_params->invalid_status, true, true);
                     $this->app->enqueueMessage(
-                        JText::_(PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_ERROR_TRANSACTION_IS_CANCELLED),
+                        JText::_(PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_ERROR_TRANSACTION_IS_CANCELLED),
                         'error'
                     );
                     $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
@@ -117,7 +117,7 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
                         $payment_params);
 
                     $this->app->enqueueMessage(
-                        JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_TRANSACTION_SUCCESS')
+                        JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_TRANSACTION_SUCCESS')
                     );
                     hikashop_get('class.cart')->cleanCartFromSession(false);
                     return $this->showPage('end');
@@ -154,16 +154,16 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
      */
     public function customInfoHTML()
     {
-        $html = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_SELECT_GENDER').' <br/>';
+        $html = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER').' <br/>';
         $html .= '<select name="gender" id="'.$this->name.'" class="'.$this->name.'">';
         $html .= '<option value="male" '
             .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_SELECT_GENDER_MALE').'</option>';
+            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER_MALE').'</option>';
         $html .= '<option value="female" '
             .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_SELECT_GENDER_FEMALE').'</option>';
+            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER_FEMALE').'</option>';
         $html .= "</select><br/>";
-        $html .= JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNA_MESSAGE_ENTER_DOB').'<br>';
+        $html .= JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_ENTER_DOB').'<br>';
         $html .= '<input type="text" name="dob" value="'.JFactory::getSession()->get('emspay_dob').'"/>';
         $html .= "<style>.hikabtn_checkout_payment_submit{display:none;}</style>";
 
@@ -201,7 +201,7 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
             'return_url' => $returnUrl,
             'transactions' => [
                 [
-                    'payment_method' => 'klarna',
+                    'payment_method' => 'klarna-pay-later',
                 ]
             ],
 
@@ -221,8 +221,8 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
         foreach ($cart->products AS $item) {
             $orderLines[] = [
                 'name' => $item->product_name,
-                'type' => \GingerPayments\Payment\Order\OrderLine\Type::PHYSICAL,
-                'currency' => \GingerPayments\Payment\Currency::EUR,
+                'type' => 'physical',
+                'currency' => 'EUR',
                 'amount' => EmspayHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
                 'quantity' => (int) $item->cart_product_quantity,
                 'vat_percentage' => EmspayHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
@@ -245,9 +245,9 @@ class plgHikashoppaymentEmspayKlarna extends EmspayPlugin
     {
         return [
             'name' => $cart->shipping[0]->shipping_name,
-            'type' => \GingerPayments\Payment\Order\OrderLine\Type::SHIPPING_FEE,
+            'type' => 'shipping_fee',
             'amount' => EmspayHelper::getAmountInCents($cart->shipping[0]->shipping_price_with_tax),
-            'currency' => \GingerPayments\Payment\Currency::EUR,
+            'currency' => 'EUR',
             'vat_percentage' => EmspayHelper::getAmountInCents(@$cart->shipping[0]->taxes[0]->tax_rate),
             'merchant_order_line_id' => $cart->shipping[0]->shipping_id,
             'quantity' => 1,

@@ -24,17 +24,15 @@ class EmspayHelper
      */
     public static function getCustomerInfo($user, $order)
     {
-        ($order->cart->billing_adress->address_telephone1==null)?$phone1='':$phone1=$order->cart->billing_adress->address_telephone1;
-        ($order->cart->billing_adress->address_telephone2==null)?$phone2='':$phone2=$order->cart->billing_adress->address_telephone2;
         return array_filter([
             'address_type' => 'billing',
             'email_address' => $user->user_email,
             'merchant_customer_id' => $user->user_id,
             'first_name' => $order->cart->billing_address->address_firstname,
             'last_name' => $order->cart->billing_address->address_lastname,
-            'phone_numbers' => array_values([
-                $phone1,
-                $phone2,
+            'phone_numbers' => array_filter([
+                $order->cart->billing_address->address_telephone,
+                $order->cart->billing_address->address_telephone2,
             ]),
             'country' => $order->cart->billing_address->address_country->zone_code_2,
             'address' => implode("\n",
