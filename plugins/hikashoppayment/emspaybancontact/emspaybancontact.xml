@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYBANCONTACT_DESCRIPTION</description>
     <files>
         <filename plugin="emspaybancontact">emspaybancontact.php</filename>
-        <filename>emspaybancontact_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

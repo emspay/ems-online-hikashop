@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYTIKKIEPAYMENTREQUEST_DESCRIPTION</description>
     <files>
         <filename plugin="emspaytikkiepaymentrequest">emspaytikkiepaymentrequest.php</filename>
-        <filename>emspaytikkiepaymentrequest_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

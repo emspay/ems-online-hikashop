@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYNOW_DESCRIPTION</description>
     <files>
         <filename plugin="emspayklarnapaynow">emspayklarnapaynow.php</filename>
-        <filename>emspayklarnapaynow_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

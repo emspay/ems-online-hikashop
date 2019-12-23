@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_DESCRIPTION</description>
     <files>
         <filename plugin="emspaypayconiq">emspaypayconiq.php</filename>
-        <filename>emspaypayconiq_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

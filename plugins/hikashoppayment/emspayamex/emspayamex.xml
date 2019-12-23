@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYAMEX_DESCRIPTION</description>
     <files>
         <filename plugin="emspayamex">emspayamex.php</filename>
-        <filename>emspayamex_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

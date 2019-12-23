@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYAPPLEPAY_DESCRIPTION</description>
     <files>
         <filename plugin="emspayapplepay">emspayapplepay.php</filename>
-        <filename>emspayapplepay_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

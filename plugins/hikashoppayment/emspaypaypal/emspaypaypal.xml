@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYSOFORT_DESCRIPTION</description>
     <files>
         <filename plugin="emspaypaypal">emspaypaypal.php</filename>
-        <filename>emspaypaypal_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

@@ -11,7 +11,6 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYIDEAL_DESCRIPTION</description>
     <files>
         <filename plugin="emspayideal">emspayideal.php</filename>
-        <filename>emspayideal_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">
