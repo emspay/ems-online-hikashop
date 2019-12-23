@@ -6,10 +6,10 @@ use Ginger\HttpClient\CurlHttpClient;
 
 final class Ginger
 {
-        /**
-         * The library version.
-         */
-        const CLIENT_VERSION = '2.0.0';
+    /**
+    * The library version.
+    */
+    const CLIENT_VERSION = '2.0.0';
 
     /**
      * The API version.
@@ -44,6 +44,6 @@ final class Ginger
                                     ),
                                 $defaultCurlOptions
                             )
-                    );
+                );
     }
 }
