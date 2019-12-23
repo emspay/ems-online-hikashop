@@ -43,7 +43,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
      * @return void
      * @since v1.0.0
      */
-    public function onAfterCheckoutStep()
+    public function onCheckoutWorkflowLoad()
     {
         if (JRequest::getString('issuer')) {
             JFactory::getSession()->set('emspay_issuer', JRequest::getString('issuer'));
@@ -80,8 +80,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
                 $this->app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
                 $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
             }
-            $this->payment_params->payment_url = $emsOrder['transactions'][0]['payment_url'];
-            return $this->showPage('end');
+            $this->app->redirect($emsOrder['transactions'][0]['payment_url']);
         }
     }
 
