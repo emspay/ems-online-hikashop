@@ -13,13 +13,18 @@
     <version>1.3.0</version>
     <files folder="extensions">
         <file id="emspay" type="library">emspay.zip</file>
+        <file id="emspayamex" type="plugin" group="hikashoppayment">emspayamex.zip</file>
+        <file id="emspayapplepay" type="plugin" group="hikashoppayment">emspayapplepay.zip</file>
         <file id="emspaybancontact" type="plugin" group="hikashoppayment">emspaybancontact.zip</file>
         <file id="emspaybanktransfer" type="plugin" group="hikashoppayment">emspaybanktransfer.zip</file>
         <file id="emspaycreditcard" type="plugin" group="hikashoppayment">emspaycreditcard.zip</file>
         <file id="emspayideal" type="plugin" group="hikashoppayment">emspayideal.zip</file>
-        <file id="emspayklarna" type="plugin" group="hikashoppayment">emspayklarna.zip</file>
+        <file id="emspayklarnapaynow" type="plugin" group="hikashoppayment">emspayklarnapaynow.zip</file>
+        <file id="emspayklarnapaylater" type="plugin" group="hikashoppayment">emspayklarnapaylater.zip</file>
         <file id="emspaypaypal" type="plugin" group="hikashoppayment">emspaypaypal.zip</file>
         <file id="emspaysofort" type="plugin" group="hikashoppayment">emspaysofort.zip</file>
         <file id="emspaypayconiq" type="plugin" group="hikashoppayment">emspaypayconiq.zip</file>
+        <file id="emspaytikkiepaymentrequest" type="plugin" group="hikashoppayment">emspaytikkiepaymentrequest.zip</file>
+        <file id="emspaywechat" type="plugin" group="hikashoppayment">emspaywechat.zip</file>
     </files>
 </extension>
