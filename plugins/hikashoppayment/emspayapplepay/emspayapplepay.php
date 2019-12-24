@@ -71,6 +71,7 @@ class plgHikashoppaymentEmspayApplepay extends EmspayPlugin
             'amount' => $totalInCents,
             'description' => $description,
             'return_url' => $returnUrl,
+            'webhook_url' => $returnUrl,
             'transactions' => [
                 [
                     'payment_method' => 'apple-pay',
