@@ -101,17 +101,4 @@ class EmspayHelper
 
         return true;
     }
-
-    /**
-     * Method obtains plugin information from the manifest file
-     *
-     * @param string $name
-     * @return string
-     */
-    public static function getPluginVersion($name)
-    {
-        $xml = JFactory::getXML(JPATH_SITE."/plugins/hikashoppayment/{$name}/{$name}.xml");
-
-        return sprintf('Joomla HikaShop v%s', (string) $xml->version);
-    }
 }

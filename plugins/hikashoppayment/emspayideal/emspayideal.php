@@ -98,7 +98,6 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
-        $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \Ginger\Ginger::createClient(
             EmspayHelper::GINGER_ENDPOINT,
             $this->payment_params->api_key,
@@ -108,8 +107,8 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                 ] : []
         );
         return $ginger->createOrder([
-            'currency' => $currency,
-            'amount' => $totalInCents,
+            'currency' => (string) $currency,
+            'amount' => (int) $totalInCents,
             'transactions' => [
                  [
                     'payment_method' => 'ideal',
@@ -117,11 +116,11 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                   ]
             ],
             'merchant_order_id' => (string) $orderId,
-            'description' => $description,
-            'customer' => $customer,
+            'description' => (string) $description,
+            'customer' => (array) $customer,
             'extra' => $plugin,
-            'return_url' => $returnUrl,
-            'webhook_url' => $returnUrl,
+            'return_url' => (string) $returnUrl,
+            'webhook_url' => (string) $returnUrl,
             ]);
 
     }
