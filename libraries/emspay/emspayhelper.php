@@ -28,7 +28,7 @@ class EmspayHelper
         return array_filter([
             'address_type' => 'billing',
             'email_address' => $user->user_email,
-            'merchant_customer_id' => (string)$temp_merchant_customer_id,
+            'merchant_customer_id' => (string) $temp_merchant_customer_id,
             'first_name' => $order->cart->billing_address->address_firstname,
             'last_name' => $order->cart->billing_address->address_lastname,
             'phone_numbers' => array_filter([

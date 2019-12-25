@@ -116,7 +116,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                     'payment_method_details' => ['issuer_id' => $issuer]
                   ]
             ],
-            'merchant_order_id' => (string)$orderId,
+            'merchant_order_id' => (string) $orderId,
             'description' => $description,
             'customer' => $customer,
             'extra' => $plugin,

@@ -61,7 +61,7 @@ class plgHikashoppaymentEmspayBancontact extends EmspayPlugin
                 ] : []
         );
         return $ginger->createOrder([
-            'merchant_order_id' => (string)$orderId,
+            'merchant_order_id' => (string) $orderId,
             'customer' => $customer,
             'extra' => $plugin,
             'currency' => $currency,
