@@ -27,29 +27,29 @@ class EmspayHelper
         $temp_merchant_customer_id = $user->user_id;
         return array_filter([
             'address_type' => 'billing',
-            'email_address' => $user->user_email,
+            'email_address' => (string) $user->user_email,
             'merchant_customer_id' => (string) $temp_merchant_customer_id,
-            'first_name' => $order->cart->billing_address->address_firstname,
-            'last_name' => $order->cart->billing_address->address_lastname,
-            'phone_numbers' => array_filter([
+            'first_name' => (string) $order->cart->billing_address->address_firstname,
+            'last_name' => (string) $order->cart->billing_address->address_lastname,
+            'phone_numbers' => (array) array_filter([
                 $order->cart->billing_address->address_telephone,
                 $order->cart->billing_address->address_telephone2,
             ]),
-            'country' => $order->cart->billing_address->address_country->zone_code_2,
+            'country' => (string) $order->cart->billing_address->address_country->zone_code_2,
             'address' => implode("\n",
                 array_filter(array(
-                        $order->cart->billing_address->address_street,
-                        $order->cart->billing_address->address_street2,
-                        $order->cart->billing_address->address_post_code
-                        ." ".$order->cart->billing_address->address_city,
+                        (string) $order->cart->billing_address->address_street,
+                        (string) $order->cart->billing_address->address_street2,
+                        (string) $order->cart->billing_address->address_post_code
+                        ." ".(string) $order->cart->billing_address->address_city,
                     )
                 )
             ),
-            'postal_code' => $order->cart->billing_address->address_post_code,
-            'locale' => self::getLocale(),
-            'ip_address' => JFactory::getApplication()->input->server->get('REMOTE_ADDR'),
-            'birthdate' => JFactory::getSession()->get('emspay_dob'),
-            'gender' => JFactory::getSession()->get('emspay_gender'),
+            'postal_code' => (string) $order->cart->billing_address->address_post_code,
+            'locale' => (string) self::getLocale(),
+            'ip_address' => (string) JFactory::getApplication()->input->server->get('REMOTE_ADDR'),
+            'birthdate' => (string) JFactory::getSession()->get('emspay_dob'),
+            'gender' => (string) JFactory::getSession()->get('emspay_gender'),
         ]);
     }
 

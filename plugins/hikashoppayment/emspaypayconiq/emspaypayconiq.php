@@ -64,7 +64,6 @@ class plgHikashoppaymentEmspayPayconiq extends EmspayPlugin
         return $ginger->createOrder([
             'merchant_order_id' => (string) $orderId,
             'customer' => (array) $customer,
-            'extra' => $plugin,
             'currency' => (string) $currency,
             'amount' => (int) $totalInCents,
             'description' => (string) $description,
