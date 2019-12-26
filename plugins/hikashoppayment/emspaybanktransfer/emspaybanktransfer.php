@@ -72,7 +72,7 @@ class plgHikashoppaymentEmspayBankTransfer extends EmspayPlugin
 
             if ($emsOrder['status'] == 'error') {
                 $this->app->enqueueMessage(
-                    JText::_($emsOrder->transactions()->current()->reason()->toString()),
+                    JText::_($emsOrder['transactions'][0]['reason']),
                     'error'
                 );
                 $this->app->enqueueMessage(

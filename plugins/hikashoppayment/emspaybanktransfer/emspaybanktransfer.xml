@@ -11,6 +11,7 @@
     <description>PLG_HIKASHOPPAYMENT_EMSPAYBANKTRANSFER_DESCRIPTION</description>
     <files>
         <filename plugin="emspaybanktransfer">emspaybanktransfer.php</filename>
+        <filename>emspaybanktransfer_end.php</filename>
         <folder>language</folder>
     </files>
     <params addpath="/components/com_hikashop/params">

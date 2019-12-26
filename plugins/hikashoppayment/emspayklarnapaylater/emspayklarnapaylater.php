@@ -64,13 +64,13 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
 
             if (isset($order->old) && $order->old->order_payment_method == $this->name) {
 
-                $ginger = \GingerPayments\Payment\Ginger::createClient(
-                    $this->payment_params->test_api_key ?: $this->payment_params->api_key
+                $ginger = \Ginger\Ginger::createClient(EmspayHelper::GINGER_ENDPOINT,
+                    $this->payment_params->api_key,
+                    $this->payment_params->bundle_cacert === '1' ?
+                        [
+                            CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
+                        ] : []
                 );
-
-                if ($this->payment_params->bundle_cacert === '1') {
-                    $ginger->useBundledCA();
-                }
 
                 $ginger->setOrderCapturedStatus(
                     $ginger->getOrder($order->old->order_payment_params['emspay_order_id'])
@@ -96,13 +96,13 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
         } else {
             try {
                 $emsOrder = $this->createEmspayOrder($order);
-                if ($emsOrder['status'] == 'error')  {
+                if ($emsOrder['status'] == 'error') {
                     $this->app->enqueueMessage(
-                        JText::_($emsOrder->transactions()->current()->reason()->toString()),
+                        JText::_($emsOrder['transactions'][0]['reason']),
                         'error'
                     );
                     $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
-                } elseif ($emsOrder->status()->isCancelled()) {
+                } elseif ($emsOrder['status'] == 'canceled') {
                     $this->modifyOrder($order->order_id, $this->payment_params->invalid_status, true, true);
                     $this->app->enqueueMessage(
                         JText::_(PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_ERROR_TRANSACTION_IS_CANCELLED),
@@ -111,7 +111,7 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                     $this->app->redirect($this->pluginConfig['cancel_url'][2].'&order_id='.$order->order_id);
                 } else {
 
-                    $payment_params = ['emspay_order_id' => $emsOrder->id()->toString()];
+                    $payment_params = ['emspay_order_id' => $emsOrder['id']];
 
                     $this->modifyOrder($order->order_id, $this->payment_params->verified_status, true, true,
                         $payment_params);
@@ -218,15 +218,17 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
         $orderLines = [];
 
         foreach ($cart->products AS $item) {
-            $orderLines[] = [
-                'name' => $item->product_name,
+            $orderLines[] = array_filter([
+                'name' => (string) $item->product_name,
                 'type' => 'physical',
                 'currency' => 'EUR',
-                'amount' => EmspayHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
+                'amount' => (int) EmspayHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
                 'quantity' => (int) $item->cart_product_quantity,
-                'vat_percentage' => EmspayHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
-                'merchant_order_line_id' => $item->product_id
-            ];
+                'vat_percentage' => (int) EmspayHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
+                'merchant_order_line_id' => (string) $item->product_id
+            ],function($value) {
+                return ! is_null($value);
+            });
         }
 
         if ($cart->shipping && EmspayHelper::getAmountInCents(@$cart->shipping[0]->shipping_price_with_tax) > 0) {
