@@ -113,6 +113,7 @@ class plgHikashoppaymentEmspayBankTransfer extends EmspayPlugin
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
+        $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \Ginger\Ginger::createClient(EmspayHelper::GINGER_ENDPOINT,
             $this->payment_params->api_key,
             $this->payment_params->bundle_cacert === '1' ?
@@ -124,6 +125,7 @@ class plgHikashoppaymentEmspayBankTransfer extends EmspayPlugin
             'merchant_order_id' => (string) $orderId,
             'customer' => (array) $customer,
             'currency' => (string) $currency,
+            'extra' => (array) $plugin,
             'amount' => (int) $totalInCents,
             'description' => (string) $description,
             'return_url' => (string) $returnUrl,

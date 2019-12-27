@@ -55,6 +55,7 @@ class plgHikashoppaymentEmspayAmex extends EmspayPlugin
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user,$this->order);
+        $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \Ginger\Ginger::createClient(EmspayHelper::GINGER_ENDPOINT,
             $this->payment_params->api_key,
             $this->payment_params->bundle_cacert === '1' ?
@@ -65,6 +66,7 @@ class plgHikashoppaymentEmspayAmex extends EmspayPlugin
         return $ginger->createOrder([
             'merchant_order_id' => (string) $orderId,
             'customer' => (array) $customer,
+            'extra' => (array) $plugin,
             'currency' => (string) $currency,
             'amount' => (int) $totalInCents,
             'description' => (string) $description,
