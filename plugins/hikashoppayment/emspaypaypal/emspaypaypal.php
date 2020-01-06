@@ -64,13 +64,13 @@ class plgHikashoppaymentEmspayPayPal extends EmspayPlugin
         );
         return $ginger->createOrder([
             'merchant_order_id' => (string) $orderId,
-            'customer' => (array) $customer,
-            'extra' => (array) $plugin,
+            'customer' => $customer,
+            'extra' => $plugin,
             'currency' => (string) $currency,
-            'amount' => (int) $totalInCents,
-            'description' => (string) $description,
-            'return_url' => (string) $returnUrl,
-            'webhook_url' => (string) $returnUrl,
+            'amount' => $totalInCents,
+            'description' => $description,
+            'return_url' => $returnUrl,
+            'webhook_url' => $returnUrl,
             'transactions' => [
                 [
                     'payment_method' => 'paypal',

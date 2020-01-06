@@ -193,13 +193,13 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
         );
         return $ginger->createOrder([
             'merchant_order_id' => (string) $orderId,
-            'customer' => (array) $customer,
+            'customer' => $customer,
             'currency' => (string) $currency,
-            'extra' => (array) $plugin,
-            'amount' => (int) $totalInCents,
-            'description' => (string) $description,
-            'return_url' => (string) $returnUrl,
-            'webhook_url' => (string) $returnUrl,
+            'extra' => $plugin,
+            'amount' => $totalInCents,
+            'description' => $description,
+            'return_url' => $returnUrl,
+            'webhook_url' => $returnUrl,
             'transactions' => [
                 [
                     'payment_method' => 'klarna-pay-later',
@@ -224,9 +224,9 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                 'name' => (string) $item->product_name,
                 'type' => 'physical',
                 'currency' => 'EUR',
-                'amount' => (int) EmspayHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
+                'amount' => EmspayHelper::getAmountInCents($item->prices[0]->unit_price->price_value_with_tax),
                 'quantity' => (int) $item->cart_product_quantity,
-                'vat_percentage' => (int) EmspayHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
+                'vat_percentage' => EmspayHelper::getAmountInCents(@$item->prices[0]->taxes[0]->tax_rate),
                 'merchant_order_line_id' => (string) $item->product_id
             ],function($value) {
                 return ! is_null($value);

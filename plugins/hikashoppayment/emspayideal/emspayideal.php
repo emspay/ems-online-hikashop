@@ -109,8 +109,8 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
         );
         return $ginger->createOrder([
             'currency' => (string) $currency,
-            'extra' => (array) $plugin,
-            'amount' => (int) $totalInCents,
+            'extra' => $plugin,
+            'amount' => $totalInCents,
             'transactions' => [
                  [
                     'payment_method' => 'ideal',
@@ -118,10 +118,10 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                   ]
             ],
             'merchant_order_id' => (string) $orderId,
-            'description' => (string) $description,
-            'customer' => (array) $customer,
-            'return_url' => (string) $returnUrl,
-            'webhook_url' => (string) $returnUrl,
+            'description' => $description,
+            'customer' => $customer,
+            'return_url' => $returnUrl,
+            'webhook_url' => $returnUrl,
             ]);
 
     }
