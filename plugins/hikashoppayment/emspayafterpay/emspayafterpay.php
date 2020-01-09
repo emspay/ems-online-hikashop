@@ -200,6 +200,7 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
             'description' => (string) $description,
             'return_url' => (string) $returnUrl,
             'webhook_url' => (string) $returnUrl,
+            'order_lines' => $orderLines,
             'transactions' => [
                 [
                     'payment_method' => 'afterpay',

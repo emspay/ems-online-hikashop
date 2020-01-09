@@ -200,6 +200,7 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
             'description' => $description,
             'return_url' => $returnUrl,
             'webhook_url' => $returnUrl,
+            'order_lines' => $orderLines,
             'transactions' => [
                 [
                     'payment_method' => 'klarna-pay-later',
