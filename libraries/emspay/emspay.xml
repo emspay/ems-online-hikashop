@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="library" method="upgrade" group="emspay" version="3.0">
+    <name>EMS Online - Library</name>
+    <creationDate>06/26/2016</creationDate>
+    <version>1.0.0</version>
+    <author>Ginger Payments</author>
+    <authorEmail>plugins@gingerpayments.com</authorEmail>
+    <authorUrl>https://www.gingerpayments.com</authorUrl>
+    <copyright>Copyright 2017 - Ginger Payments B.V.</copyright>
+    <license>The MIT License (MIT)</license>
+    <description>EMS Online HikaShop payment methods library</description>
+    <libraryname>emspay</libraryname>
+    <files>
+        <filename>emspayplugin.php</filename>
+        <filename>emspayhelper.php</filename>
+        <folder>ginger-php</folder>
+        <folder>language</folder>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.lib_emspay.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.lib_emspay.ini</language>
+        <language tag="de-DE">de-DE/de-DE.lib_emspay.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.lib_emspay.ini</language>
+    </languages>
+</extension>

@@ -6,12 +6,12 @@ pipelines:
        - step:
           script:
             - apt-get update
-            - ssh ubuntu@webshop.dev.gingerpayments.com mkdir /home/ubuntu/ing-hikashop
-            - scp -r ./*   ubuntu@webshop.dev.gingerpayments.com:/home/ubuntu/ing-hikashop
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/libraries/ingpsp/
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/pkg_ingpsp
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/ing-hikashop/plugins/hikashoppayment/ingpsp*
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp -r /home/ubuntu/ing-hikashop/* /var/www/html/joomla/
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /home/ubuntu/ing-hikashop
-            - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp /home/ubuntu/.env /var/www/html/joomla/libraries/ingpsp/ing-php/
+            - ssh ubuntu@webshop.dev.gingerpayments.com mkdir /home/ubuntu/ems-hikashop
+            - scp -r ./*   ubuntu@webshop.dev.gingerpayments.com:/home/ubuntu/ems-hikashop
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/libraries/emspay/
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/pkg_emspay
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /var/www/html/joomla/ems-hikashop/plugins/hikashoppayment/emspay*
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp -r /home/ubuntu/ems-hikashop/* /var/www/html/joomla/
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo rm -rf /home/ubuntu/ems-hikashop
+            - ssh ubuntu@webshop.dev.gingerpayments.com sudo cp /home/ubuntu/.env /var/www/html/joomla/libraries/emspay/ems-php/
             - ssh ubuntu@webshop.dev.gingerpayments.com sudo chown -R www-data:www-data /var/www/html/joomla/
