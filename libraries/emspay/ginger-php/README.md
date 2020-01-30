@@ -108,7 +108,7 @@
 +```php
 +$order = $client->getOrder($orderId);
 +$order['description'] = "New Order Description";
-+$updatedOrder = $client->updateOrder($order['id'],$order);
++$updatedOrder = $client->updateOrder($orderId,$order);
 +```
 +
 +### Initiating a refund
