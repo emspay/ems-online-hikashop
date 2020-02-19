@@ -8,3 +8,5 @@
 
 * Renamed Sofort to Klarna Pay Now
 * Renamed Klarna to Klarna Pay Later
+* Enable Klarna Pay Now
+* Enable Klarna Pay Later
