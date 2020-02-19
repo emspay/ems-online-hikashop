@@ -24,9 +24,9 @@ class EmspayHelper
      */
     public static function getCustomerInfo($user, $order)
     {
-
         $temp_merchant_customer_id = $user->user_id;
         return array_filter([
+            'address_type' => 'billing',
             'email_address' => (string) $user->user_email,
             'merchant_customer_id' => (string) $temp_merchant_customer_id,
             'first_name' => (string) $order->cart->billing_address->address_firstname,
@@ -36,16 +36,15 @@ class EmspayHelper
                 $order->cart->billing_address->address_telephone2,
             ]),
             'country' => (string) $order->cart->billing_address->address_country->zone_code_2,
-            'address' => implode(" ",
+            'address' => implode("\n",
                 array_filter(array(
                         (string) $order->cart->billing_address->address_street,
                         (string) $order->cart->billing_address->address_street2,
-                        (string) $order->cart->billing_address->address_post_code,
-                        (string) $order->cart->billing_address->address_city,
+                        (string) $order->cart->billing_address->address_post_code
+                        ." ".(string) $order->cart->billing_address->address_city,
                     )
                 )
             ),
-            'address_type' => 'billing',
             'postal_code' => (string) $order->cart->billing_address->address_post_code,
             'locale' => (string) self::getLocale(),
             'ip_address' => (string) JFactory::getApplication()->input->server->get('REMOTE_ADDR'),
