@@ -72,8 +72,8 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                         ] : []
                 );
 
-				$ems_order = $ginger->getOrder($order->old->order_payment_params['emspay_order_id']);
-				$transaction_id = !empty(current($ems_order['transactions'])) ? current($ems_order['transactions'])['id'] : null;
+                $ems_order = $ginger->getOrder($order->old->order_payment_params['emspay_order_id']);
+                $transaction_id = !empty(current($ems_order['transactions'])) ? current($ems_order['transactions'])['id'] : null;
                 $ginger->captureOrderTransaction($ems_order['id'], $transaction_id);
             }
         }
