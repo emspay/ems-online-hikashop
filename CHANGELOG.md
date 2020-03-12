@@ -12,3 +12,7 @@
 ## 1.0.2 ##
 
 *Fix Captured and shipped functionality
+
+## 1.0.2 ##
+
+*Updated pkg_emspay archive
