@@ -145,32 +145,10 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                 if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering)) {
                     return true;
                 }
-                $method->custom_html = $this->customInfoHTML();
             }
         }
 
         parent::onPaymentDisplay($order, $methods, $usable_methods);
-    }
-
-    /**
-     * @return string
-     */
-    public function customInfoHTML()
-    {
-        $html = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER').' <br/>';
-        $html .= '<select name="gender" id="'.$this->name.'" class="'.$this->name.'">';
-        $html .= '<option value="male" '
-            .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER_MALE').'</option>';
-        $html .= '<option value="female" '
-            .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER_FEMALE').'</option>';
-        $html .= "</select><br/>";
-        $html .= JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_ENTER_DOB').'<br>';
-        $html .= '<input type="text" name="dob" value="'.JFactory::getSession()->get('emspay_dob').'"/>';
-        $html .= "<style>.hikabtn_checkout_payment_submit{display:none;}</style>";
-
-        return $html;
     }
 
     /**

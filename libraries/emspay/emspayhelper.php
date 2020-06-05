@@ -48,8 +48,6 @@ class EmspayHelper
             'postal_code' => (string) $order->cart->billing_address->address_post_code,
             'locale' => (string) self::getLocale(),
             'ip_address' => (string) JFactory::getApplication()->input->server->get('REMOTE_ADDR'),
-            'birthdate' => (string) JFactory::getSession()->get('emspay_dob'),
-            'gender' => (string) JFactory::getSession()->get('emspay_gender'),
         ]);
     }
 
