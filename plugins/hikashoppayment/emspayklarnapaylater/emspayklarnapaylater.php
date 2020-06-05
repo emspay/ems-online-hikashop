@@ -120,6 +120,9 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                         JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_TRANSACTION_SUCCESS')
                     );
                     hikashop_get('class.cart')->cleanCartFromSession(false);
+                    if (isset(current($emsOrder['transactions'])['payment_url'])) {
+                      $this->app->redirect(current($emsOrder['transactions'])['payment_url']);
+                    }
                     return $this->showPage('end');
                 }
             } catch (\Exception $e) {
