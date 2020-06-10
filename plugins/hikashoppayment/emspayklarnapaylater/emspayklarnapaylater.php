@@ -123,7 +123,6 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                     if (isset(current($emsOrder['transactions'])['payment_url'])) {
                       $this->app->redirect(current($emsOrder['transactions'])['payment_url']);
                     }
-                    return $this->showPage('end');
                 }
             } catch (\Exception $e) {
                 $this->app->enqueueMessage($e->getMessage(), 'error');
