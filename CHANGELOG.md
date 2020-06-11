@@ -16,3 +16,7 @@
 ## 1.0.3 ##
 
 *Updated pkg_emspay archive
+
+## 1.4.0 ##
+
+*Added redirect to payment_url for KP Later Payment Method
