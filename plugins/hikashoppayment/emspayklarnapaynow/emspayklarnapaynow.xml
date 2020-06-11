@@ -2,11 +2,11 @@
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
     <name>EMS Online - Klarna Pay Now</name>
     <creationDate>06/11/2020</creationDate>
-    <version>1.5.0</version>
+    <version>1.4.0</version>
     <author>Ginger Payments</author>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>
-    <copyright>Copyright 2019-2020 - Ginger Payments B.V.</copyright>
+    <copyright>Copyright 2020 - Ginger Payments B.V.</copyright>
     <license>The MIT License (MIT)</license>
     <description>PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYNOW_DESCRIPTION</description>
     <files>
