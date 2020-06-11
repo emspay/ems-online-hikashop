@@ -20,7 +20,7 @@ final class ApiClient
     public function __construct(HttpClient $httpClient)
     {
                 $this->httpClient = $httpClient;
-            }
+    }
 
     /**
      * Get an array of possible iDEAL issuers.
@@ -56,7 +56,7 @@ final class ApiClient
      */
     public function createOrder(array $orderData)
     {
-                return $this->send('POST', '/orders', $orderData);
+        return $this->send('POST', '/orders', $orderData);
     }
 
     /**
