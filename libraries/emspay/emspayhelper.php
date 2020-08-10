@@ -99,6 +99,36 @@ class EmspayHelper
 
         return true;
     }
+
+    /**
+     * @param $countriesList
+     * @return bool
+     * @since v1.0.0
+     */
+    public static function countriesValidation($countriesList, $userCountry)
+    {
+        if (empty($countriesList))
+        {
+            return true;
+        } else {
+            $expCountriesList = array_map('trim', (explode(",", $countriesList)));
+            if (in_array($userCountry, $expCountriesList)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    }
+
+    public static function getCountryZone($billing_country)
+    {
+        $db	= JFactory::getDBO();
+        $query ='SELECT zone_code_2 FROM '.hikashop_table('zone').' WHERE zone_namekey LIKE "'.$billing_country .'"';
+        $db->setQuery($query);
+
+        return  $db->loadObjectList();
+    }
     /**
      * Method obtains plugin information from the manifest file
      *
