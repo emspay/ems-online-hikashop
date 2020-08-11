@@ -112,11 +112,7 @@ class EmspayHelper
             return true;
         } else {
             $expCountriesList = array_map('trim', (explode(",", $countriesList)));
-            if (in_array($userCountry, $expCountriesList)) {
-                return true;
-            } else {
-                return false;
-            }
+            return in_array($userCountry, $expCountriesList);
         }
 
     }
