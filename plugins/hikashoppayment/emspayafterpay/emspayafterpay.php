@@ -145,7 +145,7 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
                 $userCountry = EmspayHelper::getCountryZone($order->billing_address->address_country[0]);
                 $availableCountries = $method->payment_params->countries_available;
 
-                if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering) || !EmspayHelper::countriesValidation($availableCountries, $userCountry[0]->zone_code_2)) {
+                if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering) || !EmspayHelper::countriesValidation($availableCountries, current($userCountry)->zone_code_2)) {
                     return true;
                 }
                 $method->custom_html = $this->customInfoHTML();
