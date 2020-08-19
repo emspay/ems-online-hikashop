@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
     <name>EMS Online - iDEAL</name>
-    <creationDate>08/10/2020</creationDate>
+    <creationDate>08/19/2020</creationDate>
     <version>1.4.1</version>
     <author>Ginger Payments</author>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
