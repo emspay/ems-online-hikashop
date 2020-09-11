@@ -25,7 +25,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
      */
     public function __construct(&$subject, $config)
     {
-        JImport('emspay.ginger-php.vendor.autoload');
+        JImport('emspay.vendor.autoload');
         JImport('emspay.emspayhelper');
 
         JFactory::getLanguage()->load('lib_emspay', JPATH_SITE);
@@ -33,9 +33,9 @@ class EmspayPlugin extends hikashopPaymentPlugin
 
 
         $this->pluginConfig['notification'][0] = JText::sprintf('ALLOW_NOTIFICATIONS_FROM_X', 'EMS Online');
-        $this->pluginConfig['return_url'][2] = '<style>textarea {resize: none}</style><textarea wrap="off" cols="30" rows="1">'.HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=checkout&task=after_end".'</textarea>  ';
-        $this->pluginConfig['notify_url'][2] = '<style>textarea {resize: none}</style><textarea wrap="off" cols="30" rows="1">'.HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=checkout&task=notify&notif_payment=".$this->name."&tmpl=component".'</textarea>';
-        $this->pluginConfig['cancel_url'][2] = '<style>textarea {resize: none}</style><textarea wrap="off" cols="30" rows="1">'.HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=order&task=cancel_order".'</textarea>';
+        $this->pluginConfig['return_url'][2] = HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=checkout&task=after_end";
+        $this->pluginConfig['notify_url'][2] = HIKASHOP_LIVE.'index.php?option=com_hikashop&ctrl=checkout&task=notify&notif_payment='.$this->name.'&tmpl=component';
+        $this->pluginConfig['cancel_url'][2] = HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=order&task=cancel_order";
 
         return parent::__construct($subject, $config);
     }

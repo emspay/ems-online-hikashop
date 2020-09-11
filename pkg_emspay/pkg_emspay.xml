@@ -10,7 +10,7 @@
     <license>The MIT License (MIT)</license>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <files folder="extensions">
         <file id="emspay" type="library">emspay.zip</file>
         <file id="emspayamex" type="plugin" group="hikashoppayment">emspayamex.zip</file>

@@ -2,7 +2,7 @@
 <extension type="library" method="upgrade" group="emspay" version="3.0">
     <name>EMS Online - Library</name>
     <creationDate>08/19/2020</creationDate>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
     <author>Ginger Payments</author>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>
@@ -13,7 +13,9 @@
     <files>
         <filename>emspayplugin.php</filename>
         <filename>emspayhelper.php</filename>
-        <folder>ginger-php</folder>
+        <filename>composer.json</filename>
+        <filename>composer.lock</filename>
+        <folder>assets</folder>
         <folder>language</folder>
     </files>
     <languages folder="language">

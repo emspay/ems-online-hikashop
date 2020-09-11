@@ -21,6 +21,7 @@
 
 *Added redirect to payment_url for KP Later Payment Method
 
-## 1.4.1 ##
+## 1.5.0 ##
 
 *Added the ability for AfterPay to be available in the selected countries.
+*Replaced locally stored ginger-php library on composer library installer.
