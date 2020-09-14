@@ -17,6 +17,7 @@ class EmspayPlugin extends hikashopPaymentPlugin
         'invalid_status' => array('INVALID_STATUS', 'orderstatus'),
         'verified_status' => array('VERIFIED_STATUS', 'orderstatus')
     );
+    private $merchant_order_id;
 
     /**
      * @param object $subject
@@ -91,12 +92,9 @@ class EmspayPlugin extends hikashopPaymentPlugin
      */
     public function onPaymentNotification(&$statuses)
     {
-        $app = JFactory::getApplication();
-        $merchant_order_id = JRequest::getInt('merchant_order_id');
+        $this->merchant_order_id = JRequest::getInt('merchant_order_id');
+        $this->getHikashopOrder();
         $ginger_order_id = JRequest::getString('order_id');
-        $hikaOrder = $this->getOrder($merchant_order_id);
-        $this->loadPaymentParams($hikaOrder);
-        $cartClass = hikashop_get('class.cart');
         $cacert_path = EmspayHelper::getCaCertPath();
         $ginger = Ginger::createClient(
             EmspayHelper::GINGER_ENDPOINT,
@@ -113,21 +111,54 @@ class EmspayPlugin extends hikashopPaymentPlugin
         }
 
         $emsOrder = $ginger->getOrder($ginger_order_id);
-        $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$merchant_order_id;
-        $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$merchant_order_id;
+        $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$this->merchant_order_id;
+        $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$this->merchant_order_id;
 
-        if ($emsOrder['status'] == 'completed'
-            || $emsOrder['status'] == 'processing'
-            || $emsOrder['status'] == 'new'
-        ) {
-            $this->modifyOrder($merchant_order_id, $this->payment_params->verified_status, true, true);
-            $app->enqueueMessage(JText::_('LIB_EMSPAY_ORDER_IS_PLACED'));
-            $cartClass->cleanCartFromSession(false);
-            $app->redirect($return_url);
-        } else {
-            $this->modifyOrder($merchant_order_id, $this->payment_params->invalid_status, true, true);
-            $app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
-            $app->redirect($cancel_url);
+        switch ($emsOrder['status']) {
+            case 'completed' :
+                $this->updateOrderStatus($this->payment_params->verified_status, $return_url,false);
+                break;
+            case 'new' :
+                $this->updateOrderStatus('created', $cancel_url);
+                break;
+            case 'processing' :
+                $this->updateOrderStatus('pending',$cancel_url);
+                break;
+            default :
+                $this->updateOrderStatus($this->payment_params->invalid_status,$cancel_url);
+                break;
+        }
+    }
+
+    protected function getHikashopOrder(){
+        $hikaOrder = $this->getOrder($this->merchant_order_id);
+        $this->loadPaymentParams($hikaOrder);
+    }
+
+    protected function updateOrderStatus($new_order_status, $redirect_url, $clean_cart = true){
+        $cartClass = hikashop_get('class.cart');
+        $app = JFactory::getApplication();
+
+        $this->modifyOrder($this->merchant_order_id, $new_order_status, true, true);
+        $app->enqueueMessage($this->getCustomMessage($new_order_status));
+
+        if (!$clean_cart) {
+        $cartClass->cleanCartFromSession(false);
+        }
+
+        $app->redirect($redirect_url);
+    }
+
+    protected function getCustomMessage($order_status){
+        switch ($order_status) {
+            case 'completed' :
+                return JText::_('LIB_EMSPAY_ORDER_IS_PLACED');
+            case 'cancelled' :
+                return JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR');
+            case 'created' :
+                return JText::_('LIB_EMSPAY_PAYMENT_STATUS_CREATED');
+            case 'pending' :
+                return JText::_('LIB_EMSPAY_PAYMENT_STATUS_PENDING');
         }
     }
 
