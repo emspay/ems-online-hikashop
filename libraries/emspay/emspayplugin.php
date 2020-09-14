@@ -138,28 +138,21 @@ class EmspayPlugin extends hikashopPaymentPlugin
     protected function updateOrderStatus($new_order_status, $redirect_url, $clean_cart = true){
         $cartClass = hikashop_get('class.cart');
         $app = JFactory::getApplication();
+        $customMessage = JText::_('LIB_EMSPAY_PAYMENT_STATUS_'.strtoupper($new_order_status));
 
         $this->modifyOrder($this->merchant_order_id, $new_order_status, true, true);
-        $app->enqueueMessage($this->getCustomMessage($new_order_status));
+
+        if ($new_order_status != 'cancelled') {
+        $app->enqueueMessage($customMessage);
+        } else {
+        $app->enqueueMessage($customMessage, 'error');
+        }
 
         if (!$clean_cart) {
         $cartClass->cleanCartFromSession(false);
         }
 
         $app->redirect($redirect_url);
-    }
-
-    protected function getCustomMessage($order_status){
-        switch ($order_status) {
-            case 'completed' :
-                return JText::_('LIB_EMSPAY_ORDER_IS_PLACED');
-            case 'cancelled' :
-                return JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR');
-            case 'created' :
-                return JText::_('LIB_EMSPAY_PAYMENT_STATUS_CREATED');
-            case 'pending' :
-                return JText::_('LIB_EMSPAY_PAYMENT_STATUS_PENDING');
-        }
     }
 
     /**
