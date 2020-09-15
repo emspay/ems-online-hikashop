@@ -20,3 +20,13 @@
 ## 1.4.0 ##
 
 *Added redirect to payment_url for KP Later Payment Method
+
+## 1.5.0 ##
+
+*Added the ability for AfterPay to be available in the selected countries.
+*Replaced locally stored ginger-php library on composer library installer.
+
+## 1.5.1 ##
+
+*Fixed a bug where the EMS order status translated to Hikashop order status was incorrect.
+*Fixed bug MissingInformationToCreateTransaction(400): Birthday is required Gender is required.

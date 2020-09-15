@@ -2,10 +2,18 @@
 
 ## About
 
+EMS Online Payment Solution
+The ideal online payment page for your webshop.
+• Entirely in the style of your website, making transactions less likely to be terminated.
+• Working in the cloud, you won’t be bothered by updates.
+• Download your reports in the formats CAMT.053, MT940, MT940S & CODA.
+• Receive your VAT invoices via the 24/7 available online reporting tool.
+See : https://emspay.nl/en/payment-solutions/online-payments
+
 By integrating your webshop with EMS Online you can accept payments from your customers in an easy and trusted manner with all relevant payment methods supported.
 
 ## Version number
-Version v1.4.0
+Version v1.5.1
 
 ## Pre-requisites to install the plug-ins 
 * PHP v5.4 and above
@@ -38,6 +46,9 @@ The plugin can automatically generate a webhook URL when a message is sent to th
 	You can choose to offer Afterpay only to a limited set of whitelisted IP addresses. You can use this for instance when you are in the testing phase and want to make sure that Afterpay is not available yet for your customers.
 	To do this enter the IP addresses that you want to whitelist, separate the addresses by a comma (“,”). The payment method Afterpay will only be presented to customers who use a whitelisted IP address.
 	If you want to offer Afterpay to all your customers, you can leave the field empty.
+	    - Countries availability for AfterPay:
+    To allow AfterPay to be used for any other country just add its country code (in ISO 2 standard) to the "Countries available for AfterPay" field. Example: BE, NL, FR.
+    If field is empty then AfterPay will be available for all countries.
     - Klarna specific configuration
     For the payment method Klarna; see all the specific settings for Afterpay.
     - In your Joomla admin environment click ‘Save’ when you have finished configuring the plugin.
