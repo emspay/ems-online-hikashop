@@ -14,8 +14,13 @@ class EmspayPlugin extends hikashopPaymentPlugin
         'notify_url' => array('NOTIFY_URL_DEFINE', 'html', ''),
         'cancel_url' => array('CANCEL_URL_DEFINE', 'html', ''),
         'return_url' => array('RETURN_URL', 'html'),
-        'invalid_status' => array('INVALID_STATUS', 'orderstatus'),
-        'verified_status' => array('VERIFIED_STATUS', 'orderstatus')
+        'new_status' => array('NEW_STATUS', 'orderstatus','created'),
+        'processing_status' => array('PROCESSING_STATUS', 'orderstatus','pending'),
+        'see_transactions_status' => array('SEE_TRANSACTIONS_STATUS', 'orderstatus','pending'),
+        'completed_status' => array('COMPLETED_STATUS', 'orderstatus','confirmed'),
+        'error_status' => array('ERROR_STATUS', 'orderstatus','cancelled'),
+        'cancelled_status' => array('CANCELLED_STATUS', 'orderstatus','cancelled'),
+        'expired_status' => array('EXPIRED_STATUS', 'orderstatus','cancelled'),
     );
     private $merchant_order_id;
 
@@ -116,16 +121,25 @@ class EmspayPlugin extends hikashopPaymentPlugin
 
         switch ($emsOrder['status']) {
             case 'completed' :
-                $this->updateOrderStatus($this->payment_params->verified_status, $return_url,false);
+                $this->updateOrderStatus($this->payment_params->completed_status, $return_url,false);
                 break;
             case 'new' :
-                $this->updateOrderStatus('created', $cancel_url);
+                $this->updateOrderStatus($this->payment_params->new_status, $cancel_url);
                 break;
             case 'processing' :
-                $this->updateOrderStatus('pending',$cancel_url);
+                $this->updateOrderStatus($this->payment_params->processing_status, $cancel_url);
                 break;
-            default :
-                $this->updateOrderStatus($this->payment_params->invalid_status,$cancel_url);
+            case 'error' :
+                $this->updateOrderStatus($this->payment_params->error_status, $cancel_url);
+                break;
+            case 'cancelled' :
+                $this->updateOrderStatus($this->payment_params->cancelled_status, $cancel_url);
+                break;
+            case 'expired' :
+                $this->updateOrderStatus($this->payment_params->expired_status, $cancel_url);
+                break;
+            case 'see-transactions' :
+                $this->updateOrderStatus($this->payment_params->see_transactions_status, $cancel_url);
                 break;
         }
     }

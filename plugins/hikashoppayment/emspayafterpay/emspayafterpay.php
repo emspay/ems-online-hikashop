@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  * @category    Ginger
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
- * @version     v1.5.0
+ * @version     v1.5.1
  * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.0.0
@@ -48,8 +48,13 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
         $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYAFTERPAY_DESCRIPTION_INPUT_TEXT');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
-        $element->payment_params->invalid_status = 'cancelled';
-        $element->payment_params->verified_status = 'confirmed';
+        $element->payment_params->new_status = 'created';
+        $element->payment_params->processing_status = 'pending';
+        $element->payment_params->see_transactions_status = 'pending';
+        $element->payment_params->completed_status = 'confirmed';
+        $element->payment_params->error_status = 'cancelled';
+        $element->payment_params->cancelled_status = 'cancelled';
+        $element->payment_params->expired_status = 'cancelled';
         $element->payment_params->shipped_status = 'shipped';
         $element->payment_params->countries_available = 'NL, BE';
     }
