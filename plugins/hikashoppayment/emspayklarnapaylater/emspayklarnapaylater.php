@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  * @category    Ginger
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
- * @version     v1.3.0
+ * @version     v1.5.1
  * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.0.0
@@ -46,8 +46,13 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
         $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_DESCRIPTION_INPUT_TEXT');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
-        $element->payment_params->invalid_status = 'cancelled';
-        $element->payment_params->verified_status = 'confirmed';
+        $element->payment_params->new_status = 'created';
+        $element->payment_params->processing_status = 'pending';
+        $element->payment_params->see_transactions_status = 'pending';
+        $element->payment_params->completed_status = 'confirmed';
+        $element->payment_params->error_status = 'cancelled';
+        $element->payment_params->cancelled_status = 'cancelled';
+        $element->payment_params->expired_status = 'cancelled';
         $element->payment_params->shipped_status = 'shipped';
     }
 
@@ -120,7 +125,9 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                         JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_TRANSACTION_SUCCESS')
                     );
                     hikashop_get('class.cart')->cleanCartFromSession(false);
-                    return $this->showPage('end');
+                    if (isset(current($emsOrder['transactions'])['payment_url'])) {
+                      $this->app->redirect(current($emsOrder['transactions'])['payment_url']);
+                    }
                 }
             } catch (\Exception $e) {
                 $this->app->enqueueMessage($e->getMessage(), 'error');
@@ -142,32 +149,10 @@ class plgHikashoppaymentEmspayKlarnapaylater extends EmspayPlugin
                 if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering)) {
                     return true;
                 }
-                $method->custom_html = $this->customInfoHTML();
             }
         }
 
         parent::onPaymentDisplay($order, $methods, $usable_methods);
-    }
-
-    /**
-     * @return string
-     */
-    public function customInfoHTML()
-    {
-        $html = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER').' <br/>';
-        $html .= '<select name="gender" id="'.$this->name.'" class="'.$this->name.'">';
-        $html .= '<option value="male" '
-            .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER_MALE').'</option>';
-        $html .= '<option value="female" '
-            .(JFactory::getSession()->get('emspay_gender') == 'male' ? " selected" : "").'>'
-            .JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_SELECT_GENDER_FEMALE').'</option>';
-        $html .= "</select><br/>";
-        $html .= JText::_('PLG_HIKASHOPPAYMENT_EMSPAYKLARNAPAYLATER_MESSAGE_ENTER_DOB').'<br>';
-        $html .= '<input type="text" name="dob" value="'.JFactory::getSession()->get('emspay_dob').'"/>';
-        $html .= "<style>.hikabtn_checkout_payment_submit{display:none;}</style>";
-
-        return $html;
     }
 
     /**

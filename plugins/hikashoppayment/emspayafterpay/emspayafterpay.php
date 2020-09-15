@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  * @category    Ginger
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
- * @version     v1.3.0
+ * @version     v1.5.1
  * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.0.0
@@ -34,6 +34,8 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
         $this->pluginConfig['shipped_status'] = ['PLG_HIKASHOPPAYMENT_EMSPAYAFTERPAY_SHIPPED_STATUS', 'orderstatus'];
         $this->pluginConfig['test_api_key'] = ['PLG_HIKASHOPPAYMENT_EMSPAYAFTERPAY_TEST_API_KEY', 'input'];
         $this->pluginConfig['ip_filtering'] = ['PLG_HIKASHOPPAYMENT_EMSPAYAFTERPAY_IP_FILTERING', 'input'];
+        $this->pluginConfig['countries_available'] = ['PLG_HIKASHOP_EMSPAYAFTERPAY_COUNTRIES_AVAILABLE', 'input'];
+
     }
 
     /**
@@ -46,9 +48,15 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
         $element->payment_description = JText::_('PLG_HIKASHOPPAYMENT_EMSPAYAFTERPAY_DESCRIPTION_INPUT_TEXT');
         $element->payment_params->address_type = 'billing';
         $element->payment_params->notification = 1;
-        $element->payment_params->invalid_status = 'cancelled';
-        $element->payment_params->verified_status = 'confirmed';
+        $element->payment_params->new_status = 'created';
+        $element->payment_params->processing_status = 'pending';
+        $element->payment_params->see_transactions_status = 'pending';
+        $element->payment_params->completed_status = 'confirmed';
+        $element->payment_params->error_status = 'cancelled';
+        $element->payment_params->cancelled_status = 'cancelled';
+        $element->payment_params->expired_status = 'cancelled';
         $element->payment_params->shipped_status = 'shipped';
+        $element->payment_params->countries_available = 'NL, BE';
     }
 
     /**
@@ -139,7 +147,10 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
     {
         foreach ($methods as $method) {
             if ($method->payment_type == $this->name) {
-                if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering)) {
+                $userCountry = EmspayHelper::getCountryZone($order->billing_address->address_country[0]);
+                $availableCountries = $method->payment_params->countries_available;
+
+                if (!EmspayHelper::ipIsEnabled($method->payment_params->ip_filtering) || !EmspayHelper::countriesValidation($availableCountries, current($userCountry)->zone_code_2)) {
                     return true;
                 }
                 $method->custom_html = $this->customInfoHTML();
@@ -182,6 +193,10 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
+        $customer = array_merge($customer,array_filter([
+            'birthdate' => (string) JFactory::getSession()->get('emspay_dob'),
+            'gender' => (string) JFactory::getSession()->get('emspay_gender')
+        ]));
         $orderLines = $this->getOrderLines();
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \Ginger\Ginger::createClient(EmspayHelper::GINGER_ENDPOINT,

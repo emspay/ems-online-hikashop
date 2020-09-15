@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
     <name>EMS Online - Payconiq</name>
-    <creationDate>10/30/2016</creationDate>
-    <version>1.0.0</version>
+    <creationDate>09/15/2020</creationDate>
+    <version>1.5.1</version>
     <author>Ginger Payments</author>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>
-    <copyright>Copyright 2016 - Ginger Payments B.V.</copyright>
+    <copyright>Copyright 2020 - Ginger Payments B.V.</copyright>
     <license>The MIT License (MIT)</license>
     <description>PLG_HIKASHOPPAYMENT_EMSPAYPAYCONIQ_DESCRIPTION</description>
     <files>
