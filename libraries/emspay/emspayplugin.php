@@ -14,9 +14,15 @@ class EmspayPlugin extends hikashopPaymentPlugin
         'notify_url' => array('NOTIFY_URL_DEFINE', 'html', ''),
         'cancel_url' => array('CANCEL_URL_DEFINE', 'html', ''),
         'return_url' => array('RETURN_URL', 'html'),
-        'invalid_status' => array('INVALID_STATUS', 'orderstatus'),
-        'verified_status' => array('VERIFIED_STATUS', 'orderstatus')
+        'new_status' => array('NEW_STATUS', 'orderstatus','created'),
+        'processing_status' => array('PROCESSING_STATUS', 'orderstatus','pending'),
+        'see_transactions_status' => array('SEE_TRANSACTIONS_STATUS', 'orderstatus','pending'),
+        'completed_status' => array('COMPLETED_STATUS', 'orderstatus','confirmed'),
+        'error_status' => array('ERROR_STATUS', 'orderstatus','cancelled'),
+        'cancelled_status' => array('CANCELLED_STATUS', 'orderstatus','cancelled'),
+        'expired_status' => array('EXPIRED_STATUS', 'orderstatus','cancelled'),
     );
+    private $merchant_order_id;
 
     /**
      * @param object $subject
@@ -91,12 +97,9 @@ class EmspayPlugin extends hikashopPaymentPlugin
      */
     public function onPaymentNotification(&$statuses)
     {
-        $app = JFactory::getApplication();
-        $merchant_order_id = JRequest::getInt('merchant_order_id');
+        $this->merchant_order_id = JRequest::getInt('merchant_order_id');
+        $this->getHikashopOrder();
         $ginger_order_id = JRequest::getString('order_id');
-        $hikaOrder = $this->getOrder($merchant_order_id);
-        $this->loadPaymentParams($hikaOrder);
-        $cartClass = hikashop_get('class.cart');
         $cacert_path = EmspayHelper::getCaCertPath();
         $ginger = Ginger::createClient(
             EmspayHelper::GINGER_ENDPOINT,
@@ -113,22 +116,57 @@ class EmspayPlugin extends hikashopPaymentPlugin
         }
 
         $emsOrder = $ginger->getOrder($ginger_order_id);
-        $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$merchant_order_id;
-        $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$merchant_order_id;
+        $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$this->merchant_order_id;
+        $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$this->merchant_order_id;
 
-        if ($emsOrder['status'] == 'completed'
-            || $emsOrder['status'] == 'processing'
-            || $emsOrder['status'] == 'new'
-        ) {
-            $this->modifyOrder($merchant_order_id, $this->payment_params->verified_status, true, true);
-            $app->enqueueMessage(JText::_('LIB_EMSPAY_ORDER_IS_PLACED'));
-            $cartClass->cleanCartFromSession(false);
-            $app->redirect($return_url);
-        } else {
-            $this->modifyOrder($merchant_order_id, $this->payment_params->invalid_status, true, true);
-            $app->enqueueMessage(JText::_('LIB_EMSPAY_PAYMENT_STATUS_ERROR'), 'error');
-            $app->redirect($cancel_url);
+        switch ($emsOrder['status']) {
+            case 'completed' :
+                $this->updateOrderStatus($this->payment_params->completed_status, $return_url,false);
+                break;
+            case 'new' :
+                $this->updateOrderStatus($this->payment_params->new_status, $cancel_url);
+                break;
+            case 'processing' :
+                $this->updateOrderStatus($this->payment_params->processing_status, $cancel_url);
+                break;
+            case 'error' :
+                $this->updateOrderStatus($this->payment_params->error_status, $cancel_url);
+                break;
+            case 'cancelled' :
+                $this->updateOrderStatus($this->payment_params->cancelled_status, $cancel_url);
+                break;
+            case 'expired' :
+                $this->updateOrderStatus($this->payment_params->expired_status, $cancel_url);
+                break;
+            case 'see-transactions' :
+                $this->updateOrderStatus($this->payment_params->see_transactions_status, $cancel_url);
+                break;
         }
+    }
+
+    protected function getHikashopOrder(){
+        $hikaOrder = $this->getOrder($this->merchant_order_id);
+        $this->loadPaymentParams($hikaOrder);
+    }
+
+    protected function updateOrderStatus($new_order_status, $redirect_url, $clean_cart = true){
+        $cartClass = hikashop_get('class.cart');
+        $app = JFactory::getApplication();
+        $customMessage = JText::_('LIB_EMSPAY_PAYMENT_STATUS_'.strtoupper($new_order_status));
+
+        $this->modifyOrder($this->merchant_order_id, $new_order_status, true, true);
+
+        if ($new_order_status != 'cancelled') {
+        $app->enqueueMessage($customMessage);
+        } else {
+        $app->enqueueMessage($customMessage, 'error');
+        }
+
+        if (!$clean_cart) {
+        $cartClass->cleanCartFromSession(false);
+        }
+
+        $app->redirect($redirect_url);
     }
 
     /**

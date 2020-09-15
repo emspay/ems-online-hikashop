@@ -28,4 +28,5 @@
 
 ## 1.5.1 ##
 
+*Fixed a bug where the EMS order status translated to Hikashop order status was incorrect.
 *Fixed bug MissingInformationToCreateTransaction(400): Birthday is required Gender is required.
