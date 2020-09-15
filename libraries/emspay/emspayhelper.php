@@ -49,7 +49,6 @@ class EmspayHelper
             'locale' => (string) self::getLocale(),
             'ip_address' => (string) JFactory::getApplication()->input->server->get('REMOTE_ADDR'),
         ]);
-
     }
 
     /**
