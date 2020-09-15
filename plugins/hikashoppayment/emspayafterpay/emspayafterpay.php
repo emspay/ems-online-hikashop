@@ -188,6 +188,10 @@ class plgHikashoppaymentEmspayAfterPay extends EmspayPlugin
         $description = JFactory::getConfig()->get('sitename').' #'.$orderId;
         $returnUrl = $this->pluginConfig['notify_url'][2].'&merchant_order_id='.$orderId;
         $customer = EmspayHelper::getCustomerInfo($this->user, $this->order);
+        $customer = array_merge($customer,array_filter([
+            'birthdate' => (string) JFactory::getSession()->get('emspay_dob'),
+            'gender' => (string) JFactory::getSession()->get('emspay_gender')
+        ]));
         $orderLines = $this->getOrderLines();
         $plugin = ['plugin' => EmspayHelper::getPluginVersion($this->name)];
         $ginger = \Ginger\Ginger::createClient(EmspayHelper::GINGER_ENDPOINT,
