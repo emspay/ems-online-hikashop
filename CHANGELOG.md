@@ -34,3 +34,4 @@
 ## 1.5.2 ## 
 
 *Fixed a payment option page.
+*Updated plugin description.
