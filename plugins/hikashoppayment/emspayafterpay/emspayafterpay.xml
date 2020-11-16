@@ -2,7 +2,7 @@
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
     <name>EMS Online - AfterPay</name>
     <creationDate>09/15/20200</creationDate>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <author>Ginger Payments</author>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>

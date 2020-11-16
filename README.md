@@ -13,7 +13,7 @@ See : https://emspay.nl/en/payment-solutions/online-payments
 By integrating your webshop with EMS Online you can accept payments from your customers in an easy and trusted manner with all relevant payment methods supported.
 
 ## Version number
-Version v1.5.1
+Version v1.5.2
 
 ## Pre-requisites to install the plug-ins 
 * PHP v5.4 and above
@@ -33,8 +33,6 @@ Enable a payment method by clicking on the ‘x’ icon next to the payment meth
     - Copy the API key to `API key´ field.
     - Set ‘Use cURL CA bundle’ field to ‘Yes’.
 This fixes a cURL SSL Certificate issue that appears in some web-hosting environments where you do not have access to the PHP.ini file and therefore are not able to update server certificates.
-    - Enable the ‘Generate webhook URL’.
-The plugin can automatically generate a webhook URL when a message is sent to the EMS API for a new order. To enable this option set ‘Generate webhook URL´ to ‘Yes’.
     - Click ‘Save&Close’.
     - Afterpay specific configuration 
     For the payment method Afterpay there are several specific settings:
