@@ -2,16 +2,37 @@
 
 ## About
 
-EMS Online Payment Solution
-The ideal online payment page for your webshop.
-• Entirely in the style of your website, making transactions less likely to be terminated.
-• Working in the cloud, you won’t be bothered by updates.
-• Download your reports in the formats CAMT.053, MT940, MT940S & CODA.
-• Receive your VAT invoices via the 24/7 available online reporting tool.
-See : https://emspay.nl/en/payment-solutions/online-payments
+EMS helps entrepreneurs with the best, smartest and most efficient payment systems. Both 
+in your physical store and online in your webshop. With a wide range of payment methods 
+you can serve every customer.
 
-By integrating your webshop with EMS Online you can accept payments from your customers in an easy and trusted manner with all relevant payment methods supported.
+Why EMS?
 
+Via the EMS website you can create a free test account online 24/7 and try out the online 
+payment solution. EMS's online solution also offers the option of sending payment links and 
+accepting QR payments.
+
+The ideal online payment page for your webshop:
+- Free test account - available online 24/7
+- Wide range of payment methods
+- Easy integration via a plug-in or API
+- Free shopping cart plug-ins
+- Payment page in the look & feel of your webshop
+- Reports in the formats CAMT.053, MT940S, MT940 & CODA
+- One clear dashboard for all your payment, turnover data and administration functions
+
+Promotion promotion extended!
+
+Choose the EMS Online Payment Solution now
+and pay no subscription costs at € 9.95 throughout 2020!
+
+Start immediately with your test account
+Request it https://portal.emspay.eu/create-test-account?language=NL_NL 
+
+Satisfied after testing?
+Click on the yellow button [Begin→]
+ in the test portal and
+simply request your live account.
 ## Version number
 Version v1.5.2
 
