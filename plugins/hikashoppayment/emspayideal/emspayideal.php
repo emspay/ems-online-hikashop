@@ -113,7 +113,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
                     CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
                 ] : []
         );
-        return $ginger->createOrder([
+        return $ginger->createOrder(array_filter([
             'currency' => (string) $currency,
             'extra' => $plugin,
             'amount' => $totalInCents,
@@ -128,7 +128,7 @@ class plgHikashoppaymentEmspayIdeal extends EmspayPlugin
             'customer' => $customer,
             'return_url' => $returnUrl,
             'webhook_url' => $returnUrl,
-            ]);
+            ]));
 
     }
 }

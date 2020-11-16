@@ -65,7 +65,7 @@ class plgHikashoppaymentEmspayBancontact extends EmspayPlugin
                     CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
                 ] : []
         );
-        return $ginger->createOrder([
+        return $ginger->createOrder(array_filter([
             'merchant_order_id' => (string) $orderId,
             'customer' => $customer,
             'currency' => (string) $currency,
@@ -80,6 +80,6 @@ class plgHikashoppaymentEmspayBancontact extends EmspayPlugin
                 ]
             ],
 
-        ]);
+        ]));
     }
 }
