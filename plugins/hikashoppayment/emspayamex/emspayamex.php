@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  * @category    Ginger
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
- * @version     v1.5.1
+ * @version     v1.5.2
  * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.0.0
@@ -68,7 +68,7 @@ class plgHikashoppaymentEmspayAmex extends EmspayPlugin
                     CURLOPT_CAINFO => EmspayHelper::getCaCertPath()
                 ] : []
         );
-        return $ginger->createOrder([
+        return $ginger->createOrder(array_filter([
             'merchant_order_id' => (string) $orderId,
             'customer' => $customer,
             'extra' => $plugin,
@@ -83,7 +83,7 @@ class plgHikashoppaymentEmspayAmex extends EmspayPlugin
                 ]
             ],
 
-        ]);
+        ]));
     }
 
 }
