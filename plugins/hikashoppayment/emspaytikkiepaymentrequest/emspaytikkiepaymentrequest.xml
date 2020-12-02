@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
     <name>EMS Online - Tikkie Payment Request</name>
-    <creationDate>09/15/2020</creationDate>
-    <version>1.5.1</version>
+    <creationDate>11/26/2020</creationDate>
+    <version>1.5.2</version>
     <author>Ginger Payments</author>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>
