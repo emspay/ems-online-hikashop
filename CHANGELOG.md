@@ -30,3 +30,11 @@
 
 *Fixed a bug where the EMS order status translated to Hikashop order status was incorrect.
 *Fixed bug MissingInformationToCreateTransaction(400): Birthday is required Gender is required.
+
+## 1.5.2 ##
+
+*Fixed payment option page. Updated plugin description.
+
+## 1.5.3 ##
+
+*Added EMS status mapping.

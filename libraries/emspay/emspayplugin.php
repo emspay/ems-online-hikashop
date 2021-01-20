@@ -116,31 +116,39 @@ class EmspayPlugin extends hikashopPaymentPlugin
         }
 
         $emsOrder = $ginger->getOrder($ginger_order_id);
-        $return_url = $this->pluginConfig['return_url'][2].'&order_id='.$this->merchant_order_id;
-        $cancel_url = $this->pluginConfig['cancel_url'][2].'&order_id='.$this->merchant_order_id;
 
         switch ($emsOrder['status']) {
             case 'completed' :
-                $this->updateOrderStatus($this->payment_params->completed_status, $return_url,false);
+                $this->updateOrderStatus(
+                    $this->payment_params->completed_status,
+                    $this->pluginConfig['return_url'][2].'&order_id='.$this->merchant_order_id,
+                    false);
                 break;
+            default :
+                $this->updateOrderStatus(
+                    $this->mapPaymentStatuses($emsOrder['status']),
+                    $this->pluginConfig['cancel_url'][2].'&order_id='.$this->merchant_order_id,
+                    false);
+                break;
+        }
+    }
+
+    protected function mapPaymentStatuses($status){
+        switch ($status){
+            case 'completed' :
+                return $this->payment_params->completed_status;
             case 'new' :
-                $this->updateOrderStatus($this->payment_params->new_status, $cancel_url);
-                break;
-            case 'processing' :
-                $this->updateOrderStatus($this->payment_params->processing_status, $cancel_url);
-                break;
+                return $this->payment_params->new_status;
             case 'error' :
-                $this->updateOrderStatus($this->payment_params->error_status, $cancel_url);
-                break;
-            case 'cancelled' :
-                $this->updateOrderStatus($this->payment_params->cancelled_status, $cancel_url);
-                break;
+                return $this->payment_params->error_status;
+            case 'processing' :
+                return $this->payment_params->processing_status;
             case 'expired' :
-                $this->updateOrderStatus($this->payment_params->expired_status, $cancel_url);
-                break;
+                return $this->payment_params->expired_status;
             case 'see-transactions' :
-                $this->updateOrderStatus($this->payment_params->see_transactions_status, $cancel_url);
-                break;
+                return $this->payment_params->see_transactions_status;
+            case 'cancelled' :
+                return $this->payment_params->cancelled_status;
         }
     }
 
@@ -174,20 +182,16 @@ class EmspayPlugin extends hikashopPaymentPlugin
      *
      * @param object $emsApi
      * @param array $webhookData
-     * @return void
+     * @return false
      * @since v1.0.0
      */
     public function processWebhook($emsApi, array $webhookData)
     {
         if ($webhookData['event'] == 'status_changed') {
             $emsOrder = $emsApi->getOrder($webhookData['order_id']);
-            $merchantOrderId = $emsOrder->getMerchantOrderId();
-            if ($emsOrder['status'] == 'completed') {
-                $this->modifyOrder($merchantOrderId, $this->payment_params->verified_status, true, true);
-            } else {
-                $this->modifyOrder($merchantOrderId, $this->payment_params->invalid_status, true, true);
-            }
+            $merchantOrderId = $emsOrder['merchant_order_id'];
+            return $this->modifyOrder($merchantOrderId, $this->mapPaymentStatuses($emsOrder['status']), true, true);
         }
-        exit;
+        return false;
     }
 }
