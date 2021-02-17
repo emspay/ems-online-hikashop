@@ -37,4 +37,4 @@
 
 ## 1.5.3 ##
 
-*Added EMS status mapping.
+*Added status mapping.
