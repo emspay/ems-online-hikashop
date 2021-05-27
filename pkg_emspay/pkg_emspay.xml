@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <extension type="package" version="2.5.0" method="upgrade">
-    <name>EMS PAY - HihaShop Package</name>
-    <description>EMS PAY HihaShop Package containing all available payment methods</description>
+    <name>EMS PAY - HikaShop Package</name>
+    <description>EMS PAY HikaShop Package containing all available payment methods</description>
     <packagename>emspay</packagename>
     <author>Ginger Payments</author>
     <packager>Ginger Payments</packager>
@@ -10,21 +10,22 @@
     <license>The MIT License (MIT)</license>
     <authorEmail>plugins@gingerpayments.com</authorEmail>
     <authorUrl>https://www.gingerpayments.com</authorUrl>
-    <version>1.5.2</version>
+    <version></version>
     <files folder="extensions">
-        <file id="emspay" type="library">emspay.zip</file>
-        <file id="emspayamex" type="plugin" group="hikashoppayment">emspayamex.zip</file>
-        <file id="emspayafterpay" type="plugin" group="hikashoppayment">emspayafterpay.zip</file>
-        <file id="emspayapplepay" type="plugin" group="hikashoppayment">emspayapplepay.zip</file>
-        <file id="emspaybancontact" type="plugin" group="hikashoppayment">emspaybancontact.zip</file>
-        <file id="emspaybanktransfer" type="plugin" group="hikashoppayment">emspaybanktransfer.zip</file>
-        <file id="emspaycreditcard" type="plugin" group="hikashoppayment">emspaycreditcard.zip</file>
-        <file id="emspayideal" type="plugin" group="hikashoppayment">emspayideal.zip</file>
-        <file id="emspayklarnapaynow" type="plugin" group="hikashoppayment">emspayklarnapaynow.zip</file>
-        <file id="emspayklarnapaylater" type="plugin" group="hikashoppayment">emspayklarnapaylater.zip</file>
-        <file id="emspaypaypal" type="plugin" group="hikashoppayment">emspaypaypal.zip</file>
-        <file id="emspaypayconiq" type="plugin" group="hikashoppayment">emspaypayconiq.zip</file>
-        <file id="emspaytikkiepaymentrequest" type="plugin" group="hikashoppayment">emspaytikkiepaymentrequest.zip</file>
-        <file id="emspaywechat" type="plugin" group="hikashoppayment">emspaywechat.zip</file>
+        <file id="emspay" type="library">ginger.zip</file>
+        <file id="emspay_amex" type="plugin" group="hikashoppayment">emspay_amex.zip</file>
+        <file id="emspay_afterpay" type="plugin" group="hikashoppayment">emspay_afterpay.zip</file>
+        <file id="emspay_applepay" type="plugin" group="hikashoppayment">emspay_applepay.zip</file>
+        <file id="emspay_bancontact" type="plugin" group="hikashoppayment">emspay_bancontact.zip</file>
+        <file id="emspay_banktransfer" type="plugin" group="hikashoppayment">emspay_banktransfer.zip</file>
+        <file id="emspay_creditcard" type="plugin" group="hikashoppayment">emspay_creditcard.zip</file>
+        <file id="emspay_ideal" type="plugin" group="hikashoppayment">emspay_ideal.zip</file>
+        <file id="emspay_klarnapaynow" type="plugin" group="hikashoppayment">emspay_klarnapaynow.zip</file>
+        <file id="emspay_klarnapaylater" type="plugin" group="hikashoppayment">emspay_klarnapaylater.zip</file>
+        <file id="emspay_paypal" type="plugin" group="hikashoppayment">emspay_paypal.zip</file>
+        <file id="emspay_payconiq" type="plugin" group="hikashoppayment">emspay_payconiq.zip</file>
+        <file id="emspay_tikkiepaymentrequest" type="plugin" group="hikashoppayment">emspay_tikkiepaymentrequest.zip</file>
+        <file id="emspay_wechat" type="plugin" group="hikashoppayment">emspay_wechat.zip</file>
+        <file id="emspaypendingpage" type="component">emspaypendingpage.zip</file>
     </files>
 </extension>

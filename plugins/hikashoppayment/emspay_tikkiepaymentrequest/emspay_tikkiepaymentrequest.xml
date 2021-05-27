@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.0" method="upgrade" group="hikashoppayment">
+    <name>EMS Online - Tikkie Payment Request</name>
+    <creationDate>04/20/2021</creationDate>
+    <version></version>
+    <author>Ginger Payments</author>
+    <authorEmail>plugins@gingerpayments.com</authorEmail>
+    <authorUrl>https://www.gingerpayments.com</authorUrl>
+    <copyright>Copyright 2020 - Ginger Payments B.V.</copyright>
+    <license>The MIT License (MIT)</license>
+    <description>EMS Online Tikkie Payment Requesty plugin for HikaShop</description>
+    <files>
+        <filename plugin="emspay_tikkiepaymentrequest">emspay_tikkiepaymentrequest.php</filename>
+        <folder>language</folder>
+    </files>
+    <params addpath="/components/com_hikashop/params">
+        <param name="pluginoptions"
+               type="pluginoptions"
+               default="plugin"
+               label="hikashop"
+               description="PLG_HIKASHOPPAYMENT_GINGER_TIKKIEPAYMENTREQUEST_OPTIONS"/>
+    </params>
+    <config>
+        <fields name="params" addfieldpath="/components/com_hikashop/fields">
+            <fieldset name="basic">
+                <field id="pluginoptions"
+                       name="pluginoptions"
+                       type="pluginoptions"
+                       label="hikashop"
+                       description="PLG_HIKASHOPPAYMENT_GINGER_TIKKIEPAYMENTREQUEST_OPTIONS"/>
+            </fieldset>
+        </fields>
+    </config>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.plg_hikashoppayment_ginger_tikkiepaymentrequest.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.plg_hikashoppayment_ginger_tikkiepaymentrequest.ini</language>
+        <language tag="de-DE">de-DE/de-DE.plg_hikashoppayment_ginger_tikkiepaymentrequest.ini</language>
+        <language tag="fr-FR">fr-FR/fr-FR.plg_hikashoppayment_ginger_tikkiepaymentrequest.ini</language>
+    </languages>
+    <media destination="com_hikashop/images/payment" folder="media">
+        <filename>emspay_tikkiepaymentrequest.png</filename>
+    </media>
+</extension>

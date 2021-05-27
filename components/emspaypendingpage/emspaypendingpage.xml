@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="install">
+	<name>EMS Pay pending page</name>
+	<description>EMS pending page</description>
+	<author>Ginger Payments</author>
+	<creationDate>12th May 2021</creationDate>
+	<copyright>Copyright 2020 - Ginger Payments B.V.</copyright>
+	<license>The MIT License (MIT)</license>
+	<authorEmail>plugins@gingerpayments.com</authorEmail>
+	<authorUrl>https://www.gingerpayments.com</authorUrl>
+	<version></version>
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename component="emspaypendingpage" link='index.php?option=com_emspaypendingpage'>emspaypendingpage.php</filename>
+	</files>
+	<administration>
+	</administration>
+</extension>

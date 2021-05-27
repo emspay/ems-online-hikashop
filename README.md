@@ -34,7 +34,7 @@ Click on the yellow button [Begin→]
  in the test portal and
 simply request your live account.
 ## Version number
-Version v1.5.2
+Version v1.6.2
 
 ## Pre-requisites to install the plug-ins 
 * PHP v5.4 and above
