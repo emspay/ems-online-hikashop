@@ -1,9 +1,9 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-JImport('ginger.GingerPlugin');
+JImport('ginger.components.GingerOrderBuilder');
 
-class GingerPluginGateway extends GingerPlugin
+class GingerPluginGateway extends GingerOrderBuilder
 {
 
 }
