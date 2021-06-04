@@ -20,6 +20,7 @@
         <file id="emspay_banktransfer" type="plugin" group="hikashoppayment">emspay_banktransfer.zip</file>
         <file id="emspay_creditcard" type="plugin" group="hikashoppayment">emspay_creditcard.zip</file>
         <file id="emspay_ideal" type="plugin" group="hikashoppayment">emspay_ideal.zip</file>
+        <file id="emspay_googlepay" type="plugin" group="hikashoppayment">emspay_googlepay.zip</file>
         <file id="emspay_klarnapaynow" type="plugin" group="hikashoppayment">emspay_klarnapaynow.zip</file>
         <file id="emspay_klarnapaylater" type="plugin" group="hikashoppayment">emspay_klarnapaylater.zip</file>
         <file id="emspay_paypal" type="plugin" group="hikashoppayment">emspay_paypal.zip</file>

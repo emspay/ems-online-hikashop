@@ -27,6 +27,7 @@ class GingerBankConfig
             'afterpay' => 'afterpay',
             'amex' => 'amex',
             'applepay' => 'apple-pay',
+            'googlepay' => 'google-pay',
             'bancontact' => 'bancontact',
             'banktransfer' => 'bank-transfer',
             'creditcard' => 'credit-card',
