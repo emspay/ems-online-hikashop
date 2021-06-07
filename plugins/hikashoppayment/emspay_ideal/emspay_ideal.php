@@ -28,31 +28,6 @@ class plgHikashoppaymentEmspay_Ideal extends GingerPluginGateway implements Ging
     var $name = GingerBankConfig::BANK_PREFIX.'ideal';
 
     /**
-     * @param $order
-     * @param $methods
-     * @param $usable_methods
-     * @return bool
-     * @since v1.0.0
-     */
-    public function onPaymentDisplay(&$order, &$methods, &$usable_methods)
-    {
-        $app = JFactory::getApplication();
-
-        foreach ($methods as $method)
-        {
-            if ($method->payment_type == $this->name)
-            {
-                if (empty($method->payment_params->api_key)) {
-                    $app->enqueueMessage(JText::_('LIB_GINGER_API_KEY_NOT_SET'), 'error');
-                }else{
-                    $method->custom_html = $this->getIssuers($method->payment_params);
-                }
-            }
-        }
-        parent::onPaymentDisplay($order, $methods, $usable_methods);
-    }
-
-    /**
      * @param $payment_params
      * @return string - html select form with issuers in option
      * @since 1.6.0

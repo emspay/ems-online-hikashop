@@ -23,10 +23,12 @@
         <file id="emspay_googlepay" type="plugin" group="hikashoppayment">emspay_googlepay.zip</file>
         <file id="emspay_klarnapaynow" type="plugin" group="hikashoppayment">emspay_klarnapaynow.zip</file>
         <file id="emspay_klarnapaylater" type="plugin" group="hikashoppayment">emspay_klarnapaylater.zip</file>
+        <file id="emspay_klarnadirectdebit" type="plugin" group="hikashoppayment">emspay_klarnadirectdebit.zip</file>
         <file id="emspay_paypal" type="plugin" group="hikashoppayment">emspay_paypal.zip</file>
         <file id="emspay_payconiq" type="plugin" group="hikashoppayment">emspay_payconiq.zip</file>
         <file id="emspay_tikkiepaymentrequest" type="plugin" group="hikashoppayment">emspay_tikkiepaymentrequest.zip</file>
         <file id="emspay_wechat" type="plugin" group="hikashoppayment">emspay_wechat.zip</file>
+        <file id="emspay_sofort" type="plugin" group="hikashoppayment">emspay_sofort.zip</file>
         <file id="emspaypendingpage" type="component">emspaypendingpage.zip</file>
     </files>
 </extension>

@@ -1,5 +1,4 @@
 <?php
-
 defined('_JEXEC') or die('Restricted access');
 
 /**
@@ -23,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JImport('ginger.GingerPluginGateway');
 
-class plgHikashoppaymentEmspay_Googlepay extends GingerPluginGateway
+class plgHikashoppaymentEmspay_Klarnadirectdebit extends GingerPluginGateway implements GingerOrderCapturing
 {
-    var $name = GingerBankConfig::BANK_PREFIX.'googlepay';
+    var $name = GingerBankConfig::BANK_PREFIX.'klarnadirectdebit';
 }
