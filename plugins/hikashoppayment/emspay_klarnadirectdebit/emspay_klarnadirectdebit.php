@@ -25,4 +25,22 @@ JImport('ginger.GingerPluginGateway');
 class plgHikashoppaymentEmspay_Klarnadirectdebit extends GingerPluginGateway implements GingerOrderCapturing, GingerOrderLines
 {
     var $name = GingerBankConfig::BANK_PREFIX.'klarnadirectdebit';
+
+    /**
+     * @return string - order lines type
+     * since 1.6.0
+     */
+    public function getOrderLinesType()
+    {
+        return 'physical';
+    }
+
+    /**
+     * @return string - shipping order line type
+     * @since 1.6.0
+     */
+    public function getShippingOrderLineType()
+    {
+        return 'shipping_fee';
+    }
 }
