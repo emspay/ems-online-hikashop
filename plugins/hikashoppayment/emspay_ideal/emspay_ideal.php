@@ -37,6 +37,7 @@ class plgHikashoppaymentEmspay_Ideal extends GingerPluginGateway implements Ging
         $helper = new GingerHelper($payment_params);
 
         $html = '<select name="issuer" id="'.$this->name.'" class="'.$this->name.'">';
+        $html .= '<option value="">Choose your bank:</option>';
         foreach ($helper->getIssuers() AS $issuer)
         {
             $html .= '<option value="'.$issuer['id'].'">'.$issuer['name']."</option>";
