@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
  * @category    Ginger
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
- * @version     v1.6.0
+ * @version     v
  * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.6.0
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 JImport('ginger.GingerPluginGateway');
 
-class plgHikashoppaymentEmspay_Klarnadirectdebit extends GingerPluginGateway implements GingerOrderCapturing
+class plgHikashoppaymentEmspay_Klarnadirectdebit extends GingerPluginGateway implements GingerOrderCapturing, GingerOrderLines
 {
     var $name = GingerBankConfig::BANK_PREFIX.'klarnadirectdebit';
 }

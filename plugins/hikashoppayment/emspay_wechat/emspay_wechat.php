@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  * @category    Ginger
  * @package     Ginger HikaShop
  * @author      Ginger Payments B.V. (plugins@gingerpayments.com)
- * @version     v1.6.0
+ * @version     v
  * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
  * @license     The MIT License (MIT)
  * @since       v1.0.0
